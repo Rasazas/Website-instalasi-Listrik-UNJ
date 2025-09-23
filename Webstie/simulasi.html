@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi - Alat 2 Bismillah</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">Alat 2 Bismillah</div>
+        <ul class="navbar-menu">
+            <li><a href="home.html" class="nav-link">Home</a></li>
+            <li><a href="materi.html" class="nav-link">Materi</a></li>
+            <li><a href="simulasi.html" class="nav-link active">Simulasi</a></li>
+            <li><a href="quiz.html" class="nav-link">Quiz</a></li>
+            <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
+            <li><a href="tentang.html" class="nav-link">Tentang</a></li>
+        </ul>
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="simulasi-section">
+                <h2 class="section-title">Simulasi Kontrol</h2>
+                <div class="simulasi-controls">
+                    <div class="simulasi-switches">
+                        <div class="simulasi-switch">
+                            <label class="switch-label">Saklar 1
+                                <input type="checkbox" id="switch1">
+                                <span class="slider-switch"></span>
+                                <span class="switch-status" id="status1">OFF</span>
+                            </label>
+                        </div>
+                        <div class="simulasi-switch">
+                            <label class="switch-label">Saklar 2
+                                <input type="checkbox" id="switch2">
+                                <span class="slider-switch"></span>
+                                <span class="switch-status" id="status2">OFF</span>
+                            </label>
+                        </div>
+                        <div class="simulasi-switch">
+                            <label class="switch-label">Saklar 3
+                                <input type="checkbox" id="switch3">
+                                <span class="slider-switch"></span>
+                                <span class="switch-status" id="status3">OFF</span>
+                            </label>
+                        </div>
+                        <div class="simulasi-switch">
+                            <label class="switch-label">Saklar 4
+                                <input type="checkbox" id="switch4">
+                                <span class="slider-switch"></span>
+                                <span class="switch-status" id="status4">OFF</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="simulasi-slider">
+                        <label for="brightness" class="slider-label">Dimmer Lampu</label>
+                        <input type="range" min="0" max="100" value="50" id="brightness" class="slider-range">
+                        <span id="brightnessValue">50%</span>
+                    </div>
+                    <div class="simulasi-pir-fixed">
+                        <span class="pir-label">Sensor PIR:</span>
+                        <span id="pirIndicator" class="pir-indicator pir-off"><i class="pir-icon"></i> Tidak Terdeteksi</span>
+                    </div>
+                </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
