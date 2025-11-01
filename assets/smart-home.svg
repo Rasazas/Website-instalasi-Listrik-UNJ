@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="350" height="350" viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .smart-home { fill: #00ffcc; }
+    .glow { filter: drop-shadow(0 0 8px #00ffcc); }
+  </style>
+  <g class="glow">
+    <path class="smart-home" d="M175 50 L50 150 L75 150 L75 275 L275 275 L275 150 L300 150 Z"/>
+    <circle class="smart-home" cx="175" cy="175" r="40"/>
+    <path class="smart-home" d="M175 135 L175 215 M135 175 L215 175"/>
+  </g>
+</svg>

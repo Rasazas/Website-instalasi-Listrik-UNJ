@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440" height="1024" version="1.1" viewBox="0 0 1440 1024" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none" stroke="#00ffcc" stroke-opacity=".1">
+  <path d="m0 0h1440v1024h-1440z" stroke-width="1"/>
+  <g stroke-width=".5">
+   <path d="m72 0v1024"/>
+   <path d="m144 0v1024"/>
+   <path d="m216 0v1024"/>
+   <path d="m288 0v1024"/>
+   <path d="m360 0v1024"/>
+   <path d="m432 0v1024"/>
+   <path d="m504 0v1024"/>
+   <path d="m576 0v1024"/>
+   <path d="m648 0v1024"/>
+   <path d="m720 0v1024"/>
+   <path d="m792 0v1024"/>
+   <path d="m864 0v1024"/>
+   <path d="m936 0v1024"/>
+   <path d="m1008 0v1024"/>
+   <path d="m1080 0v1024"/>
+   <path d="m1152 0v1024"/>
+   <path d="m1224 0v1024"/>
+   <path d="m1296 0v1024"/>
+   <path d="m1368 0v1024"/>
+  </g>
+  <g stroke-width=".5">
+   <path d="m0 51.2h1440"/>
+   <path d="m0 102.4h1440"/>
+   <path d="m0 153.6h1440"/>
+   <path d="m0 204.8h1440"/>
+   <path d="m0 256h1440"/>
+   <path d="m0 307.2h1440"/>
+   <path d="m0 358.4h1440"/>
+   <path d="m0 409.6h1440"/>
+   <path d="m0 460.8h1440"/>
+   <path d="m0 512h1440"/>
+   <path d="m0 563.2h1440"/>
+   <path d="m0 614.4h1440"/>
+   <path d="m0 665.6h1440"/>
+   <path d="m0 716.8h1440"/>
+   <path d="m0 768h1440"/>
+   <path d="m0 819.2h1440"/>
+   <path d="m0 870.4h1440"/>
+   <path d="m0 921.6h1440"/>
+   <path d="m0 972.8h1440"/>
+  </g>
+ </g>
+</svg>

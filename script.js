@@ -2,7 +2,7 @@
 // Ganti dengan endpoint dan API Key SinricPro Anda
 const SINRICPRO_API_URL = "https://api.sinric.pro/v1/devices/{DEVICE_ID}/actions";
 const SINRICPRO_STATUS_URL = "https://api.sinric.pro/v1/devices/{DEVICE_ID}/state";
-const SINRICPRO_API_KEY = "YOUR_API_KEY";
+const SINRICPRO_API_KEY = "23d7a9a0-35b4-4e8f-b869-4fb0367e35f3";
 
 function sendSwitchToSinricPro(state) {
 	fetch(SINRICPRO_API_URL, {
@@ -174,3 +174,16 @@ function simulatePir() {
 }
 // Simulasi PIR: ubah status setiap 3 detik
 setInterval(simulatePir, 3000);
+
+// Fungsi untuk mengirim permintaan ke ESP8266
+function sendToLocalServer(endpoint) {
+  fetch(`http://<ESP8266_IP>/${endpoint}`, { method: "GET" })
+    .then(response => console.log(`Request to ${endpoint} successful`))
+    .catch(error => console.error(`Error sending request to ${endpoint}:`, error));
+}
+
+// Fungsi untuk mengubah status Relay 1
+function toggleRelay1(state) {
+  const endpoint = state ? "relay1/on" : "relay1/off";
+  sendToLocalServer(endpoint);
+}

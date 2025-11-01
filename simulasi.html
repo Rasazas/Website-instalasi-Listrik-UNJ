@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi - Trainer Instalasi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        body {
+            background-color: #0a0f1f;
+            background-image: url('/assets/background-grid.svg');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .section-title.fade-in {
+            color: #fff;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px #00ffcc;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        
+        .simulasi-card {
+            background: rgba(20, 30, 50, 0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 25px rgba(0,255,204,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 32px 24px;
+            color: #fff;
+            max-width: 500px;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .simulasi-card h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: #00ffcc;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 32px;
+            margin: 8px 0;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider-toggle {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, #00aaff, #00ffcc);
+            transition: .4s;
+            border-radius: 32px;
+            box-shadow: 0 0 10px #00ffcc88;
+        }
+        .slider-toggle:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #fff;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ffcc88;
+        }
+        .toggle-switch input:checked + .slider-toggle {
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+        }
+        .toggle-switch input:checked + .slider-toggle:before {
+            transform: translateX(28px);
+            background-color: #00ffcc;
+        }
+        .simulasi-label {
+            color: #bffcff;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .simulasi-slider {
+            width: 100%;
+            margin: 18px 0;
+        }
+        .pir-status {
+            margin-top: 18px;
+            font-size: 1.1rem;
+            color: #00ffcc;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Simulasi Trainer Instalasi</div>
+        <ul class="navbar-menu">
+            <li><a href="home.html" class="nav-link">Home</a></li>
+            <li><a href="materi.html" class="nav-link">Materi</a></li>
+            <li><a href="simulasi.html" class="nav-link active">Simulasi</a></li>
+            <li><a href="quiz.html" class="nav-link">Quiz</a></li>
+            <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
+            <li><a href="tentang.html" class="nav-link">Tentang</a></li>
+        </ul>
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="container">
+        <h2 class="section-title fade-in">Simulasi Kontrol Smarthome</h2>
+        <div class="simulasi-card fade-in">
+            <h3>Kontrol Saklar & Dimmer</h3>
+            <div>
+                <span class="simulasi-label">Relay 1:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="relay1-toggle">
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+            <div>
+                <span class="simulasi-label">Relay 2:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="relay2-toggle">
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+            <div>
+                <span class="simulasi-label">Relay 3:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="relay3-toggle">
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+            <div>
+                <span class="simulasi-label">Relay 4:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="relay4-toggle">
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+           
+            <div>
+                <span class="simulasi-label">Dimmer (RobotDyn):</span>
+                <input type="range" min="0" max="100" value="37" class="simulasi-slider" id="dimmer-slider">
+                <span id="dimmer-value" style="color:#00ffcc;font-weight:bold;">37%</span>
+            </div>
+            <div class="pir-status">
+                Notifikasi PIR: <span>Tidak ada gerakan</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        // IP ESP8266, ganti sesuai IP yang muncul di Serial Monitor
+        const ESP_IP = "192.168.100.34";
+
+        // Slider dimmer logic
+        const slider = document.getElementById('dimmer-slider');
+        const valueLabel = document.getElementById('dimmer-value');
+        slider.addEventListener('input', function() {
+            valueLabel.textContent = slider.value + '%';
+            fetch(`http://${ESP_IP}/dimmer/set?value=${slider.value}`);
+        });
+
+        // Toggle logic (relay)
+        for(let i=1; i<=5; i++) {
+            document.getElementById(`relay${i}-toggle`).addEventListener('change', function() {
+                const state = this.checked ? "on" : "off";
+                fetch(`http://${ESP_IP}/relay${i}/${state}`);
+            });
+        }
+    </script>
+</body>
+</html>

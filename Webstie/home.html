@@ -3,41 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Alat 2 Bismillah</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Home - Teknik Instalasi Listrik</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body {
+            background-color: #0a0f1f;
+            background-image: url('/assets/background-grid.svg');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .section-title.fade-in {
+            color: #fff;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px #00ffcc;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        nav a {
+            color: #fff;
+            padding: 16px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            background: rgba(0, 255, 204, 0.2);
+            color: #00ffcc;
+        }
+        .home-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .home-left {
+            flex: 1;
+            color: #fff;
+            padding: 2rem 1rem;
+        }
+        .home-desc {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #bffcff;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+        .mulai-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 12px 32px;
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            color: #0a0f1f;
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 0 15px rgba(0,255,204,0.5);
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .mulai-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0,255,204,0.8);
+            color: #fff;
+            background: linear-gradient(90deg, #00aaff, #00ffcc);
+        }
+        .home-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .hero-img {
+            width: 350px;
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 0 40px #00ffcc44;
+            background: rgba(20, 30, 50, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        .icon-glow {
+            width: 64px;
+            height: 64px;
+            filter: drop-shadow(0 0 8px #00ffcc);
+            animation: glowPulse 2s infinite alternate;
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+        }
+        @keyframes glowPulse {
+            from { filter: drop-shadow(0 0 8px #00ffcc);}
+            to { filter: drop-shadow(0 0 24px #00ffcc);}
+        }
+        @media (max-width: 900px) {
+            .home-flex { flex-direction: column; }
+            .home-right { margin-top: 2rem; }
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-logo">Alat 2 Bismillah</div>
+        <div class="navbar-logo">Teknik Instalasi Listrik</div>
         <ul class="navbar-menu">
-            <li><a href="home.html" class="nav-link active">Home</a></li>
-            <li><a href="materi.html" class="nav-link">Materi</a></li>
-            <li><a href="simulasi.html" class="nav-link">Simulasi</a></li>
-            <li><a href="quiz.html" class="nav-link">Quiz</a></li>
-            <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
-            <li><a href="tentang.html" class="nav-link">Tentang</a></li>
+            <li><a href="/home.html" class="nav-link active">Home</a></li>
+            <li><a href="/materi.html" class="nav-link">Materi</a></li>
+            <li><a href="/simulasi.html" class="nav-link">Simulasi</a></li>
+            <li><a href="/quiz.html" class="nav-link">Quiz</a></li>
+            <li><a href="/jobsheet.html" class="nav-link">Jobsheet</a></li>
+            <li><a href="/tentang.html" class="nav-link">Tentang</a></li>
         </ul>
         <div class="navbar-toggle" id="navbarToggle">
             <span></span><span></span><span></span>
         </div>
     </nav>
-    <div class="container">
-        <section class="home-section" style="display: flex; align-items: center; min-height: 70vh; justify-content: space-between; gap: 32px;">
-            <div class="home-content" style="max-width: 50%;">
-                <h1 class="home-title" style="font-size:2.5rem; color:#3fe0b7; margin-bottom:16px;">Selamat Datang di<br>Alat 2 Bismillah</h1>
-                <p class="home-subtitle" style="font-size:1.2rem; color:#e0e0e0; margin-bottom:32px;">Platform pembelajaran dan simulasi interaktif berbasis teknologi modern.</p>
-                <a href="materi.html" class="btn-home" style="background:#3fe0b7; color:#003c5c; padding:14px 32px; border-radius:8px; font-weight:600; font-size:1.1rem; text-decoration:none; box-shadow:0 2px 8px rgba(63,224,183,0.15); transition:background 0.2s;">Mulai Belajar</a>
+    <div class="home-flex">
+        <div class="home-left fade-in">
+            <h1 class="section-title fade-in">Selamat Datang di<br>Website Instalasi Penerangan Listrik</h1>
+            <div class="home-desc fade-in">
+                Platform pembelajaran dan simulasi instalasi penerangan berbasis teknologi modern.
+                Menggunakan modul ESP8266 sebagai pengendali utama, sistem ini dirancang untuk mensimulasikan instalasi 
+                penerangan berbasis Smart Home, di mana pengguna dapat mengontrol dan memantau lampu secara otomatis maupun 
+                jarak jauh melalui jaringan Wi-Fi.
             </div>
-            <div class="home-illustration" style="max-width: 45%; display: flex; flex-direction: column; align-items: center; gap: 24px;">
-                <img src="assets/Gemini 1.png" alt="Belajar" style="width:120px; margin-bottom:8px;">
-                <div style="display:flex; gap:24px;">
-                    <img src="assets/Gemini 2.png" alt="Graduation" style="width:80px;">
-                    <img src="assets/Gemini 3.png" alt="Smart Home" style="width:80px;">
-                </div>
-            </div>
-        </section>
+            <a href="/materi.html" class="mulai-btn fade-in">Mulai Belajar</a>
+        </div>
+        <div class="home-right fade-in">
+            <img src="/assets/instalasi1.png" alt="Smart Home Ilustrasi" class="hero-img">
+        </div>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>

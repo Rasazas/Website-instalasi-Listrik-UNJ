@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Teknik Instalasi Listrik</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+     
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        body {
+            background-color: #0a0f1f;
+            background-image: url('/assets/background-grid.svg');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .section-title.fade-in {
+            color: #fff;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px #00ffcc;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .quiz-card {
+            background: rgba(20, 30, 50, 0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 25px rgba(0,255,204,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px 18px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .quiz-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            color: #00ffcc;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+        .quiz-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 22px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            color: #0a0f1f;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,255,204,0.5);
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .quiz-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0,255,204,0.8);
+            color: #fff;
+            background: linear-gradient(90deg, #00aaff, #00ffcc);
+        }
+        .icon-glow {
+            width: 48px;
+            height: 48px;
+            filter: drop-shadow(0 0 5px #00ffcc);
+            animation: glowPulse 2s infinite alternate;
+            position: absolute;
+            top: 18px;
+            right: 18px;
+        }
+        @keyframes glowPulse {
+            from { filter: drop-shadow(0 0 5px #00ffcc);}
+            to { filter: drop-shadow(0 0 15px #00ffcc);}
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Teknik Instalasi Listrik</div>
+        <ul class="navbar-menu">
+            <li><a href="home.html" class="nav-link">Home</a></li>
+            <li><a href="materi.html" class="nav-link">Materi</a></li>
+            <li><a href="simulasi.html" class="nav-link">Simulasi</a></li>
+            <li><a href="quiz.html" class="nav-link active">Quiz</a></li>
+            <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
+            <li><a href="tentang.html" class="nav-link">Tentang</a></li>
+        </ul>
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="container">
+        <h2 class="section-title fade-in">Quiz Teknik Instalasi Listrik</h2>
+        <div class="quiz-grid fade-in">
+            <div class="quiz-card">
+                <h3>Quiz 1</h3>
+                <p>Pertanyaan atau deskripsi quiz 1.</p>
+                <a href="#" class="quiz-btn">Mulai Quiz</a>
+                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="quiz-card">
+                <h3>Quiz 2</h3>
+                <p>Pertanyaan atau deskripsi quiz 2.</p>
+                <a href="#" class="quiz-btn">Mulai Quiz</a>
+                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <!-- Tambahkan card quiz lain sesuai kebutuhan -->
+        </div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>

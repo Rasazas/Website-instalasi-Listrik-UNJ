@@ -3,67 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobsheet - Alat 2 Bismillah</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Jobsheet - Teknik Instalasi Listrik</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        nav {
+            margin-left: 32px;
+            margin-right: 32px;
+        }
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        body {
+            background-color: #0a0f1f;
+            background-image: url('/assets/background-grid.svg');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .section-title.fade-in {
+            color: #fff;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px #00ffcc;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        nav a {
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            background: rgba(0, 255, 204, 0.2);
+            color: #00ffcc;
+        }
+        .jobsheet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .jobsheet-card {
+            background: rgba(20, 30, 50, 0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 25px rgba(0,255,204,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px 18px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .jobsheet-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            color: #00ffcc;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+        .jobsheet-pdf-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 22px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            color: #0a0f1f;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,255,204,0.5);
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .jobsheet-pdf-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0,255,204,0.8);
+            color: #fff;
+            background: linear-gradient(90deg, #00aaff, #00ffcc);
+        }
+        .icon-glow {
+            width: 48px;
+            height: 48px;
+            filter: drop-shadow(0 0 5px #00ffcc);
+            animation: glowPulse 2s infinite alternate;
+            position: absolute;
+            top: 18px;
+            right: 18px;
+        }
+        @keyframes glowPulse {
+            from { filter: drop-shadow(0 0 5px #00ffcc);}
+            to { filter: drop-shadow(0 0 15px #00ffcc);}
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-logo">Alat 2 Bismillah</div>
+        <div class="navbar-logo">Teknik Instalasi Listrik</div>
         <ul class="navbar-menu">
-            <li><a href="home.html" class="nav-link">Home</a></li>
-            <li><a href="materi.html" class="nav-link">Materi</a></li>
-            <li><a href="simulasi.html" class="nav-link">Simulasi</a></li>
-            <li><a href="quiz.html" class="nav-link">Quiz</a></li>
-            <li><a href="jobsheet.html" class="nav-link active">Jobsheet</a></li>
-            <li><a href="tentang.html" class="nav-link">Tentang</a></li>
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/materi.html" class="nav-link">Materi</a></li>
+            <li><a href="/simulasi.html" class="nav-link">Simulasi</a></li>
+            <li><a href="/quiz.html" class="nav-link">Quiz</a></li>
+            <li><a href="/jobsheet.html" class="nav-link active">Jobsheet</a></li>
+            <li><a href="/tentang.html" class="nav-link">Tentang</a></li>
         </ul>
         <div class="navbar-toggle" id="navbarToggle">
             <span></span><span></span><span></span>
         </div>
     </nav>
     <div class="container">
-        <section class="jobsheet-section">
-            <h2 class="section-title">Jobsheet Manual</h2>
-            <div class="jobsheet-table-wrapper">
-                <table class="jobsheet-table">
-                    <thead>
-                        <tr>
-                            <th>Judul</th>
-                            <th>File PDF</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Jobsheet 1</td><td><a href="pdf/NPWP.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet 2</td><td><a href="pdf/jobsheet2.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet 3</td><td><a href="pdf/jobsheet3.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet 4</td><td><a href="pdf/jobsheet4.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet 5</td><td><a href="pdf/jobsheet5.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet 6</td><td><a href="pdf/jobsheet6.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet 7</td><td><a href="pdf/jobsheet7.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet 8</td><td><a href="pdf/jobsheet8.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                    </tbody>
-                </table>
+        <h2 class="section-title fade-in">Jobsheet Instalasi Listrik</h2>
+        <div class="jobsheet-grid fade-in">
+            <div class="jobsheet-card">
+                <h3>Jobsheet 1</h3>
+                <p>Pemasangan Terminal Stopkontak</p>
+                <a href="/pdf jobsheet/job1.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
             </div>
-            <h2 class="section-title">Jobsheet Smarthome</h2>
-            <div class="jobsheet-table-wrapper">
-                <table class="jobsheet-table">
-                    <thead>
-                        <tr>
-                            <th>Judul</th>
-                            <th>File PDF</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Jobsheet Smarthome 1</td><td><a href="pdf/smarthome1.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet Smarthome 2</td><td><a href="pdf/smarthome2.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet Smarthome 3</td><td><a href="pdf/smarthome3.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet Smarthome 4</td><td><a href="pdf/smarthome4.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                        <tr><td>Jobsheet Smarthome 5</td><td><a href="pdf/smarthome5.pdf" target="_blank" class="jobsheet-pdf-btn">Lihat PDF</a></td></tr>
-                    </tbody>
-                </table>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 2</h3>
+                <p>Pemasangan Instalasi 1 Grup</p>
+                <a href="/pdf jobsheet/job2.pdf" class="jobsheet-pdf-btn">Lihat PDF</a>
+                <img src="/assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
             </div>
-        </section>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 3</h3>
+                <p>Pemasangan Saklar Seri</p>
+                <a href="/pdf jobsheet/job3.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 4</h3>
+                <p>Instalasi Kamar Tidur</p>
+                <a href="/pdf jobsheet/job4.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 5</h3>
+                <p>Pemasangan Instalasi Lorong</p>
+                <a href="/pdf jobsheet/job5.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 6</h3>
+                <p>Instalasi Kamar Tidur dengan Wastafel</p>
+                <a href="/pdf jobsheet/job6.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 7</h3>
+                <p>Instalasi Dua Grup</p>
+                <a href="/pdf jobsheet/job7.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 8</h3>
+                <p>Kendali Lampu dari Website</p>
+                <a href="/pdf materi/surat EDARAN HUT RI.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 9</h3>
+                <p>Kendali Kecerahan Lampu dari website</p>
+                <a href="/pdf materi/surat EDARAN HUT RI.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 10</h3>
+                <p>Kendali Lampu Menggunakan Sensor</p>
+                <a href="/pdf materi/surat EDARAN HUT RI.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <div class="jobsheet-card">
+                <h3>Jobsheet 11</h3>
+                <p>Kendali Lampu Menggunakan Sensor dan Dimmer</p>
+                <a href="/pdf materi/surat EDARAN HUT RI.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+            </div>
+            <!-- Tambahkan card lain sesuai kebutuhan -->
+        </div>
     </div>
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>
