@@ -98,6 +98,122 @@
             margin: 0 auto;
             padding: 2rem 1rem;
         }
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(10, 15, 31, 0.8);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1000;
+              font-size: 1rem;
+        }
+        .logo {
+            font-size: 1.8rem;
+            color: #00ffcc;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+        .navbar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            position: relative;
+        }
+        .nav-link.active {
+            color: #00ffcc;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+        .navbar-toggle {
+                display: none;
+                flex-direction: column;
+                cursor: pointer;
+                gap: 0;
+                height: 28px;
+                width: 32px;
+                justify-content: center;
+                align-items: center;
+        }
+        .navbar-toggle span {
+                width: 25px;
+                height: 3px;
+                background: #fff;
+                margin-bottom: 4px;
+                border-radius: 2px;
+                transition: all 0.3s ease;
+        }
+            .navbar-toggle span:last-child {
+                margin-bottom: 0;
+            }
+        /* Responsive styles */
+        @media (max-width: 768px) {
+                .navbar {
+                    flex-wrap: wrap;
+                    padding: 1rem;
+                    font-size: 1rem;
+                }
+                .navbar-toggle {
+                    display: flex;
+                    position: relative;
+                    z-index: 4000;
+                    height: 28px;
+                    width: 32px;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .navbar-toggle span {
+                    width: 25px;
+                    height: 3px;
+                    background: #fff;
+                    margin-bottom: 4px;
+                    border-radius: 2px;
+                    transition: all 0.3s ease;
+                }
+                .navbar-toggle span:last-child {
+                    margin-bottom: 0;
+                }
+                .navbar-menu {
+                    display: none;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    background: rgba(10, 15, 31, 0.9);
+                    padding: 1rem 0;
+                    border-top: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 0 0 8px 8px;
+                    font-size: 1rem;
+                    gap: 1.5rem;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                }
+                .navbar-menu.active {
+                    display: flex;
+                }
+        }
     </style>
 </head>
 <body>
@@ -163,25 +279,32 @@
             </div>
             <div class="jobsheet-card">
                 <h3>Jobsheet 8</h3>
-                <p>Kendali Lampu dari Website</p>
+                <p>Instalasi Penerangan Ruang Tamu Pintar Berbasis Smartphone</p>
                 <a href="./pdf jobsheet/job8.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
-                <img src="./assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+                <img src="./assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
             </div>
             <div class="jobsheet-card">
                 <h3>Jobsheet 9</h3>
-                <p>Kendali Kecerahan Lampu dari website</p>
-                <a href="./pdf materi/surat EDARAN HUT RI.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
-                <img src="./assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+                <p>Instalasi Penerangan Kamar Tidur dengan Pengatur Kecerahan (Smart Dimmer)</p>
+                <a href="./pdf jobsheet/job9.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="./assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
             </div>
             <div class="jobsheet-card">
                 <h3>Jobsheet 10</h3>
-                <p>Instalasi Lampu Tangga Darurat</p>
-                <a href="./pdf materi/job10" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
-                <img src="./assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
+                <p>Instalasi Penerangan Tangga Darurat Otomatis Berbasis Sensor Gerak PIR</p>
+                <a href="./pdf jobsheet/job10.pdf" class="jobsheet-pdf-btn" target="_blank">Lihat PDF</a>
+                <img src="./assets/jobs.png" alt="Smart Home Icon" class="icon-glow">
             </div>
             <!-- Tambahkan card lain sesuai kebutuhan -->
         </div>
     </div>
     <script src="/script.js"></script>
+    <script>
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

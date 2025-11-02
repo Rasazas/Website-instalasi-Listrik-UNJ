@@ -41,27 +41,44 @@
         }
         .home-flex {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 80vh;
         }
-        .home-left {
-            flex: 1;
-            color: #fff;
-            padding: 2rem 1rem;
+        .home-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .home-img-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+        .hero-img {
+            width: 250px;
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 0 40px #00ffcc44;
+            background: rgba(20, 30, 50, 0.5);
+            backdrop-filter: blur(8px);
         }
         .home-desc {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
             color: #bffcff;
             text-shadow: 0 0 8px #00ffcc;
         }
         .mulai-btn {
             display: inline-block;
-            margin-top: 1rem;
+            margin-top: 0;
             padding: 12px 32px;
             font-size: 1.2rem;
             background: linear-gradient(90deg, #00ffcc, #00aaff);
@@ -80,88 +97,95 @@
             color: #fff;
             background: linear-gradient(90deg, #00aaff, #00ffcc);
         }
-        .home-right {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .hero-img {
-            width: 350px;
-            max-width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 0 40px #00ffcc44;
-            background: rgba(20, 30, 50, 0.5);
-            backdrop-filter: blur(8px);
-        }
-        .icon-glow {
-            width: 64px;
-            height: 64px;
-            filter: drop-shadow(0 0 8px #00ffcc);
-            animation: glowPulse 2s infinite alternate;
-            position: absolute;
-            bottom: 24px;
-            right: 24px;
-        }
-        @keyframes glowPulse {
-            from { filter: drop-shadow(0 0 8px #00ffcc);}
-            to { filter: drop-shadow(0 0 24px #00ffcc);}
-        }
-        @media (max-width: 900px) {
-            .home-flex { flex-direction: column; }
-            .home-right { margin-top: 2rem; }
-        }
-
-        /* Tambahan untuk navbar */
+        /* Navbar styles */
         .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
             background-color: rgba(10, 15, 31, 0.8);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: relative;
+            z-index: 1000;
         }
-        
+        .logo {
+            font-size: 1.8rem;
+            color: #00ffcc;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ffcc;
+        }
         .navbar-menu {
-            display: flex;
             list-style: none;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5rem;
         }
-
         .nav-link {
             color: #fff;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            position: relative;
         }
-
-        .nav-link:hover,
         .nav-link.active {
-            background: rgba(0, 255, 204, 0.2);
             color: #00ffcc;
         }
-
-        .navbar-logo {
-            display: none;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
-
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
         .navbar-toggle {
             display: none;
+            flex-direction: column;
+            cursor: pointer;
         }
-
+        .navbar-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin-bottom: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        /* Responsive styles */
         @media (max-width: 768px) {
             .navbar-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 15, 31, 0.9);
                 flex-direction: column;
-                gap: 0.5rem;
+                align-items: center;
+                display: none;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
             }
+            .navbar-menu.active {
+                display: flex;
+            }
+            .navbar-toggle {
+                display: flex;
+            }
+        }
+        @media (max-width: 900px) {
+            .home-flex { flex-direction: column; }
+            .home-center { max-width: 100%; }
         }
     </style>
 </head>
 <body>
+    
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">Teknik Instalasi Listrik</div>
@@ -177,19 +201,26 @@
             <span></span><span></span><span></span>
         </div>
     </nav>
+    <script>
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
     <div class="home-flex">
-        <div class="home-left fade-in">
+        <div class="home-center fade-in">
             <h1 class="section-title fade-in">Selamat Datang di<br>Website Instalasi Penerangan Listrik</h1>
+            <div class="home-img-wrapper fade-in">
+                <img src="./assets/instalasi1.png" alt="Smart Home Ilustrasi" class="hero-img">
+            </div>
             <div class="home-desc fade-in">
                 Platform pembelajaran dan simulasi instalasi penerangan berbasis teknologi modern.
                 Menggunakan modul ESP8266 sebagai pengendali utama, sistem ini dirancang untuk mensimulasikan instalasi 
                 penerangan berbasis Smart Home, di mana pengguna dapat mengontrol dan memantau lampu secara otomatis maupun 
                 jarak jauh melalui jaringan Wi-Fi.
             </div>
-            <a href="/materi.html" class="mulai-btn fade-in">Mulai Belajar</a>
-        </div>
-        <div class="home-right fade-in">
-            <img src="./assets/instalasi1.png" alt="Smart Home Ilustrasi" class="hero-img">
+            <a href="materi.html" class="mulai-btn fade-in">Mulai Belajar</a>
         </div>
     </div>
 </body>

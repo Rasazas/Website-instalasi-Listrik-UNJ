@@ -98,12 +98,118 @@
             margin: 0 auto;
             padding: 2rem 1rem;
         }
+        .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0a0f1f;
+  padding: 1rem;
+  position: relative;
+  z-index: 3000;
+            font-size: 1rem;
+}
+
+/* Tombol Burger */
+.navbar-toggle {
+    display: none;
+    cursor: pointer;
+    z-index: 4000;
+    flex-direction: column;
+    gap: 0;
+    height: 28px;
+    width: 32px;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+.navbar-toggle span:last-child {
+    margin-bottom: 0;
+}
+
+/* Menu Navigasi */
+.navbar-menu {
+  display: flex;
+  gap: 1.2rem;
+  list-style: none;
+}
+
+.navbar-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar-menu a:hover {
+  color: #00ffcc;
+}
+
+/* MODE MOBILE */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .navbar-toggle {
+        display: flex;
+        position: relative;
+        z-index: 4000;
+        height: 28px;
+        width: 32px;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbar-toggle span {
+        width: 25px;
+        height: 3px;
+        background: #fff;
+        margin-bottom: 4px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+    .navbar-toggle span:last-child {
+        margin-bottom: 0;
+    }
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: rgba(10, 15, 31, 0.9);
+        padding: 1rem 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0 0 8px 8px;
+        font-size: 1rem;
+        gap: 1.5rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 2500;
+    }
+    .navbar-menu.active {
+        display: flex;
+    }
+}
+
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">Teknik Instalasi Listrik</div>
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span><span></span><span></span>
+        </div>
         <ul class="navbar-menu">
             <li><a href="home.html" class="nav-link">Home</a></li>
             <li><a href="materi.html" class="nav-link">Materi</a></li>
@@ -112,10 +218,14 @@
             <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
             <li><a href="tentang.html" class="nav-link">Tentang</a></li>
         </ul>
-        <div class="navbar-toggle" id="navbarToggle">
-            <span></span><span></span><span></span>
-        </div>
     </nav>
+    <script>
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+        navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
     <div class="container">
         <h2 class="section-title fade-in">Quiz Teknik Instalasi Listrik</h2>
         <div class="quiz-grid fade-in">

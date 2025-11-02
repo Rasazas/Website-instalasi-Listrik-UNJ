@@ -17,7 +17,42 @@
             background-size: cover;
             background-attachment: fixed;
             font-family: 'Segoe UI', Arial, sans-serif;
-        }
+            }
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 2rem;
+                background-color: rgba(10, 15, 31, 0.8);
+                backdrop-filter: blur(10px);
+                position: relative;
+                z-index: 1000;
+                font-size: 1rem;
+            }
+            .navbar-toggle {
+                display: none;
+                flex-direction: column;
+                cursor: pointer;
+                gap: 0;
+                height: 28px;
+                width: 32px;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                z-index: 4000;
+            }
+            .navbar-toggle span {
+                width: 25px;
+                height: 3px;
+                background: #fff;
+                margin-bottom: 4px;
+                border-radius: 2px;
+                transition: all 0.3s ease;
+            }
+            .navbar-toggle span:last-child {
+                margin-bottom: 0;
+            }
+
         .section-title.fade-in {
             color: #fff;
             font-size: 2.2rem;
@@ -98,12 +133,73 @@
             margin: 0 auto;
             padding: 2rem 1rem;
         }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+
+            .navbar {
+                flex-wrap: wrap;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            .navbar-toggle {
+                display: flex;
+                position: relative;
+                z-index: 4000;
+                height: 28px;
+                width: 32px;
+                justify-content: center;
+                align-items: center;
+            }
+            .navbar-toggle span {
+                width: 25px;
+                height: 3px;
+                background: #fff;
+                margin-bottom: 4px;
+                border-radius: 2px;
+                transition: all 0.3s ease;
+            }
+            .navbar-toggle span:last-child {
+                margin-bottom: 0;
+            }
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                background: rgba(10, 15, 31, 0.9);
+                padding: 1rem 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                border-radius: 0 0 8px 8px;
+                font-size: 1rem;
+                gap: 1.5rem;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+            }
+            .navbar-menu.active {
+                display: flex;
+            }
+
+            .smarthome-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .smarthome-card {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">Teknik Instalasi Listrik</div>
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span><span></span><span></span>
+        </div>
         <ul class="navbar-menu">
             <li><a href="home.html" class="nav-link">Home</a></li>
             <li><a href="materi.html" class="nav-link active">Materi</a></li>
@@ -112,9 +208,6 @@
             <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
             <li><a href="tentang.html" class="nav-link">Tentang</a></li>
         </ul>
-        <div class="navbar-toggle" id="navbarToggle">
-            <span></span><span></span><span></span>
-        </div>
     </nav>
     <div class="container">
         <h2 class="section-title fade-in">Materi Instalasi Listrik</h2>
@@ -170,5 +263,14 @@
         </div>
     </div>
     <script src="/script.js"></script>
+    <script>
+        // JavaScript for toggling the navbar menu
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarMenu = document.querySelector('.navbar-menu');
+
+        navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

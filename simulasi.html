@@ -111,12 +111,102 @@
             color: #00ffcc;
             text-shadow: 0 0 8px #00ffcc;
         }
+        .navbar-toggle { z-index: 2000; }
+        .navbar-menu { z-index: 1500; }
+        /* ==== NAVBAR DESKTOP ==== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(10, 15, 31, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 3000;
+    font-size: 1rem;
+}
+
+
+.navbar-toggle {
+    display: none; /* disembunyikan dulu di desktop */
+    cursor: pointer;
+    z-index: 4000;
+    flex-direction: column;
+    gap: 0;
+    height: 28px;
+    width: 32px;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+.navbar-toggle span:last-child {
+    margin-bottom: 0;
+}
+       /* ==== NAVBAR MOBILE ==== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .navbar-toggle {
+        display: flex;
+        position: relative;
+        z-index: 4000;
+        height: 28px;
+        width: 32px;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbar-toggle span {
+        width: 25px;
+        height: 3px;
+        background: #fff;
+        margin-bottom: 4px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+    .navbar-toggle span:last-child {
+        margin-bottom: 0;
+    }
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: rgba(10, 15, 31, 0.9);
+        padding: 1rem 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0 0 8px 8px;
+        font-size: 1rem;
+        gap: 1.5rem;
+    }
+    .navbar-menu.active {
+        display: flex;
+    }
+}
+@media (min-width: 769px) {
+    .navbar-toggle {
+        display: none !important;
+    }
+}
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">Simulasi Trainer Instalasi</div>
+        <div class="logo">Teknik Instalasi Listrik</div>
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span><span></span><span></span>
+        </div>
         <ul class="navbar-menu">
             <li><a href="home.html" class="nav-link">Home</a></li>
             <li><a href="materi.html" class="nav-link">Materi</a></li>
@@ -125,9 +215,6 @@
             <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
             <li><a href="tentang.html" class="nav-link">Tentang</a></li>
         </ul>
-        <div class="navbar-toggle" id="navbarToggle">
-            <span></span><span></span><span></span>
-        </div>
     </nav>
     <div class="container">
         <h2 class="section-title fade-in">Simulasi Kontrol Smarthome</h2>
@@ -191,6 +278,28 @@
                 fetch(`http://${ESP_IP}/relay${i}/${state}`);
             });
         }
+
+        // Debug: log toggle
+        console.log('Navbar burger script loaded');
     </script>
+    <!-- Script toggle navbar burger, letakkan sebelum </body> -->
+    <script>
+(function() {
+    var navbarToggle = document.getElementById('navbarToggle');
+    var navbarMenu = document.querySelector('.navbar-menu');
+    if (navbarToggle && navbarMenu) {
+        navbarToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            navbarMenu.classList.toggle('active');
+        });
+        document.body.addEventListener('click', function(e) {
+            if (navbarMenu.classList.contains('active') && !navbarMenu.contains(e.target) && e.target !== navbarToggle) {
+                navbarMenu.classList.remove('active');
+            }
+        });
+    }
+})();
+</script>
 </body>
 </html>
