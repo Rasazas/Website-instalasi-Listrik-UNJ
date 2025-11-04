@@ -6,7 +6,6 @@
     <title>Quiz - Teknik Instalasi Listrik</title>
     <link rel="stylesheet" href="style.css">
     <style>
-     
         html, body {
             max-width: 100vw;
             overflow-x: hidden;
@@ -34,7 +33,6 @@
             from { opacity: 0; transform: translateY(20px);}
             to { opacity: 1; transform: translateY(0);}
         }
-        
         .quiz-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -99,109 +97,113 @@
             padding: 2rem 1rem;
         }
         .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0a0f1f;
-  padding: 1rem;
-  position: relative;
-  z-index: 3000;
-            font-size: 1rem;
-}
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: #0a0f1f;
+          padding: 1rem;
+          position: relative;
+          z-index: 3000;
+          font-size: 1rem;
+        }
+        .navbar-toggle {
+            display: none;
+            cursor: pointer;
+            z-index: 4000;
+            flex-direction: column;
+            gap: 0;
+            height: 28px;
+            width: 32px;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin-bottom: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .navbar-toggle span:last-child {
+            margin-bottom: 0;
+        }
+        .navbar-menu {
+          display: flex;
+          gap: 1.2rem;
+          list-style: none;
+        }
+        .navbar-menu a {
+          color: #fff;
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.3s;
+        }
+        .navbar-menu a:hover {
+          color: #00ffcc;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            .navbar-toggle {
+                display: flex;
+                position: relative;
+                z-index: 4000;
+                height: 28px;
+                width: 32px;
+                justify-content: center;
+                align-items: center;
+            }
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                background: rgba(10, 15, 31, 0.9);
+                padding: 1rem 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                border-radius: 0 0 8px 8px;
+                font-size: 1rem;
+                gap: 1.5rem;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                z-index: 2500;
+            }
+            .navbar-menu.active {
+                display: flex;
+            }
+        }
 
-/* Tombol Burger */
-.navbar-toggle {
-    display: none;
-    cursor: pointer;
-    z-index: 4000;
-    flex-direction: column;
-    gap: 0;
-    height: 28px;
-    width: 32px;
-    justify-content: center;
-    align-items: center;
-}
-
-.navbar-toggle span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    margin-bottom: 4px;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-.navbar-toggle span:last-child {
-    margin-bottom: 0;
-}
-
-/* Menu Navigasi */
-.navbar-menu {
-  display: flex;
-  gap: 1.2rem;
-  list-style: none;
-}
-
-.navbar-menu a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.navbar-menu a:hover {
-  color: #00ffcc;
-}
-
-/* MODE MOBILE */
-@media (max-width: 768px) {
-    .navbar {
-        flex-wrap: wrap;
-        padding: 1rem;
-        font-size: 1rem;
+        
+    /* --- QUIZ AREA --- */
+    #quiz-area {
+      display: none;
+      background: rgba(10, 20, 40, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      color: #fff;
+      margin-top: 2rem;
+      box-shadow: 0 0 25px rgba(0,255,204,0.3);
     }
-    .navbar-toggle {
-        display: flex;
-        position: relative;
-        z-index: 4000;
-        height: 28px;
-        width: 32px;
-        justify-content: center;
-        align-items: center;
+    #quiz-area h2 { color:#00ffcc; text-align:center; margin-bottom:1.5rem; }
+    .question { margin-bottom: 1.3rem; }
+    .question h3 { color:#00aaff; margin-bottom: .8rem; }
+    label { display:block; margin:6px 0; padding:8px; border-radius:8px; cursor:pointer; transition:.3s; }
+    label:hover { background: rgba(0,255,204,0.1); }
+    .btn {
+      display:block; margin:20px auto; background:linear-gradient(90deg,#00ffcc,#00aaff);
+      color:#0a0f1f; border:none; border-radius:10px; padding:10px 20px;
+      font-weight:bold; cursor:pointer; transition:.3s;
     }
-    .navbar-toggle span {
-        width: 25px;
-        height: 3px;
-        background: #fff;
-        margin-bottom: 4px;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-    .navbar-toggle span:last-child {
-        margin-bottom: 0;
-    }
-    .navbar-menu {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        background: rgba(10, 15, 31, 0.9);
-        padding: 1rem 0;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        border-radius: 0 0 8px 8px;
-        font-size: 1rem;
-        gap: 1.5rem;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 2500;
-    }
-    .navbar-menu.active {
-        display: flex;
-    }
-}
-
-    </style>
+    .btn:hover { background:linear-gradient(90deg,#00aaff,#00ffcc); color:#fff; }
+    #result { text-align:center; font-size:1.3rem; color:#00ffcc; margin-top:1.5rem; }
+  </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -219,6 +221,7 @@
             <li><a href="tentang.html" class="nav-link">Tentang</a></li>
         </ul>
     </nav>
+
     <script>
         const navbarToggle = document.getElementById('navbarToggle');
         const navbarMenu = document.querySelector('.navbar-menu');
@@ -226,24 +229,538 @@
             navbarMenu.classList.toggle('active');
         });
     </script>
-    <div class="container">
-        <h2 class="section-title fade-in">Quiz Teknik Instalasi Listrik</h2>
-        <div class="quiz-grid fade-in">
-            <div class="quiz-card">
-                <h3>Quiz 1</h3>
-                <p>Pertanyaan atau deskripsi quiz 1.</p>
-                <a href="#" class="quiz-btn">Mulai Quiz</a>
-                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
-            </div>
-            <div class="quiz-card">
-                <h3>Quiz 2</h3>
-                <p>Pertanyaan atau deskripsi quiz 2.</p>
-                <a href="#" class="quiz-btn">Mulai Quiz</a>
-                <img src="/assets/smart-home-icon.png" alt="Smart Home Icon" class="icon-glow">
-            </div>
-            <!-- Tambahkan card quiz lain sesuai kebutuhan -->
-        </div>
+
+     <!-- Tampilan daftar quiz -->
+    <div id="quiz-list" class="quiz-grid fade-in">
+      <div class="quiz-card"><h3>Quiz 1</h3><p>Keselamatan dan Kesehatan Kerja (K3).</p><button class="quiz-btn" onclick="startQuiz(1)">Mulai Quiz</button></div>
+      <div class="quiz-card"><h3>Quiz 2</h3><p>Mengenal dan Memahami Komponen Listrik.</p><button class="quiz-btn" onclick="startQuiz(2)">Mulai Quiz</button></div>
+      <div class="quiz-card"><h3>Quiz 3</h3><p>Mengenal dan Memahami Hubungan Dasar Instalasi Listrik.</p><button class="quiz-btn" onclick="startQuiz(3)">Mulai Quiz</button></div>
+      <div class="quiz-card"><h3>Quiz 4</h3><p>Panel Hubung Bagi dan Instalasi 2 Grup.</p><button class="quiz-btn" onclick="startQuiz(4)">Mulai Quiz</button></div>
+      <div class="quiz-card"><h3>Quiz 5</h3><p>Rekapitulasi daya dan kesetimbangan beban.</p><button class="quiz-btn" onclick="startQuiz(5)">Mulai Quiz</button></div>
+      <div class="quiz-card"><h3>Quiz 6</h3><p>Motor listrik & trafo.</p><button class="quiz-btn" onclick="startQuiz(6)">Mulai Quiz</button></div>
+      <div class="quiz-card"><h3>Quiz 7</h3><p>Energi dan daya listrik.</p><button class="quiz-btn" onclick="startQuiz(7)">Mulai Quiz</button></div>
+      <div class="quiz-card"><h3>Quiz 8</h3><p>Smart home & IoT.</p><button class="quiz-btn" onclick="startQuiz(8)">Mulai Quiz</button></div>
     </div>
-    <script src="/script.js"></script>
+
+    <!-- Area isi quiz -->
+    <div id="quiz-area"></div>
+  </div>
+
+  <script>
+    // Data Quiz
+    const quizzes = {
+      // ==========================
+// QUIZ 1 - Keselamatan dan Kesehatan Kerja (K3)
+// ==========================
+1: {
+  title: "Quiz 1 - Keselamatan dan Kesehatan Kerja (K3)",
+  key: ['c','b','b','c','b'],
+  questions: [
+    [
+      "Tujuan utama penerapan K3 di bidang kelistrikan adalah...",
+      [
+        "Meningkatkan produktivitas kerja",
+        "Mengurangi biaya pemeliharaan",
+        "Menjamin keselamatan tenaga kerja dari bahaya listrik",
+        "Meningkatkan efisiensi energi",
+        "Meningkatkan daya guna peralatan"
+      ]
+    ],
+    [
+      "Warna hijau pada logo K3 melambangkan...",
+      [
+        "Bahaya",
+        "Kesehatan dan keselamatan",
+        "Peringatan",
+        "Larangan",
+        "Kewaspadaan"
+      ]
+    ],
+    [
+      "Peralatan yang berfungsi memutus arus listrik ketika terjadi beban lebih adalah...",
+      [
+        "Fuse",
+        "MCB",
+        "Relay",
+        "ELCB",
+        "Busbar"
+      ]
+    ],
+    [
+      "Standar nasional yang menjadi pedoman instalasi listrik di Indonesia adalah...",
+      [
+        "SNI 2010",
+        "PLN 2005",
+        "PUIL 2020",
+        "ISO 9001",
+        "SNI 06-0225"
+      ]
+    ],
+    [
+      "Lembaga yang berwenang menguji kelayakan peralatan listrik di Indonesia adalah...",
+      [
+        "LIPI",
+        "LMK",
+        "PLN",
+        "BNSP",
+        "BSN"
+      ]
+    ]
+  ]
+},
+
+// ==========================
+// QUIZ 2 - Instalasi Dasar Listrik
+// ==========================
+2: {
+  title: "Quiz 2 - Komponen Instalasi Listrik",
+  key: ['b','c','a','d','b'],
+  questions: [
+    [
+      "Komponen utama yang berfungsi menghubungkan dan memutus arus listrik secara otomatis saat terjadi beban lebih adalah...",
+      [
+        "Relay",
+        "MCB (Miniature Circuit Breaker)",
+        "Fuse",
+        "ELCB",
+        "Sakelar tunggal"
+      ]
+    ],
+    [
+      "Jenis kabel yang umum digunakan untuk instalasi listrik rumah tinggal adalah...",
+      [
+        "NYY",
+        "NYAF",
+        "NYM",
+        "BC",
+        "NFA2X"
+      ]
+    ],
+    [
+      "Perhatikan gambar berikut:<br><div style='text-align:center;margin:10px 0;'><img src='./assets/mcb.jpg' alt='Gambar MCB' style='width:180px;max-width:80%;border-radius:10px;box-shadow:0 0 12px rgba(0,255,204,0.4);'></div>Komponen tersebut berfungsi sebagai...",
+      [
+        "Pemutus arus otomatis (MCB)",
+        "Pelindung dari kebocoran arus (ELCB)",
+        "Penghantar utama (Kabel)",
+        "Penyambung listrik (Terminal block)",
+        "Pengaman mekanis (Fuse)"
+      ]
+    ],
+    [
+      "Perhatikan gambar berikut:<br><div style='text-align:center;margin:10px 0;'><img src=./assets/saklar.png alt='Gambar Sakelar' style='width:150px;max-width:70%;border-radius:10px;box-shadow:0 0 12px rgba(0,255,204,0.4);'></div>Komponen listrik tersebut berfungsi untuk...",
+      [
+        "Menyalurkan arus ke tanah (Grounding)",
+        "Membagi arus ke grup panel",
+        "Melindungi beban dari arus lebih",
+        "Menghubungkan dan memutus arus secara manual",
+        "Menurunkan tegangan listrik"
+      ]
+    ],
+    [
+      "Fungsi utama ELCB dalam instalasi listrik rumah tangga adalah...",
+      [
+        "Memutus arus saat beban berlebih",
+        "Memutus arus ketika terjadi kebocoran arus ke tanah",
+        "Menurunkan tegangan dari 220V ke 110V",
+        "Menambah arus pada beban besar",
+        "Menyambungkan daya ke jaringan PLN"
+      ]
+    ]
+  ]
+},
+
+// ==========================
+// QUIZ 3 - Instalasi Dasar Listrik
+// ==========================
+3: {
+  title: "Quiz 3 - Instalasi Dasar Listrik",
+  key: ['c','c','c','c','c'],
+  questions: [
+    [
+      "Instalasi listrik menurut PUIL 2011 harus memenuhi syarat...",
+      [
+        "Desain menarik",
+        "Kabel berwarna seragam",
+        "Keselamatan, keandalan, dan efisiensi energi",
+        "Tanpa pengaman listrik",
+        "Konstruksi sederhana"
+      ]
+    ],
+    [
+      "Jenis instalasi listrik yang penghantarnya ditanam di dalam dinding disebut...",
+      [
+        "Outbow",
+        "Overhead",
+        "Inbow",
+        "Portable",
+        "External"
+      ]
+    ],
+    [
+      "Fungsi utama MCB pada instalasi listrik adalah...",
+      [
+        "Menyimpan energi listrik",
+        "Menurunkan tegangan",
+        "Melindungi dari arus lebih dan hubung singkat",
+        "Menyalurkan energi cadangan",
+        "Mengatur arus keluaran"
+      ]
+    ],
+    [
+      "Warna kabel hijau-kuning berfungsi sebagai...",
+      [
+        "Penghantar fasa",
+        "Penghantar netral",
+        "Penghantar grounding atau pengaman",
+        "Penghantar kontrol",
+        "Penghantar beban"
+      ]
+    ],
+    [
+      "Alat pengaman yang memutus arus ketika ada kebocoran ke tanah adalah...",
+      [
+        "MCB",
+        "Sekering",
+        "ELCB",
+        "Trafo",
+        "Relay"
+      ]
+    ]
+  ]
+},
+
+// ==========================
+// QUIZ 4 - Penghantar dan Sistem Pemadangan
+// ==========================
+4: {
+  title: "Quiz 4 - Penghantar dan Sistem Pemadangan",
+  key: ['b','c','c','b','c'],
+  questions: [
+    [
+      "Fungsi utama penghantar listrik adalah...",
+      [
+        "Mengatur tegangan",
+        "Menyalurkan arus dari sumber ke beban",
+        "Menyimpan energi listrik",
+        "Mengubah energi listrik menjadi panas",
+        "Mengontrol daya"
+      ]
+    ],
+    [
+      "Penghantar yang baik menurut PUIL 2011 harus memiliki sifat berikut, kecuali...",
+      [
+        "Daya hantar tinggi",
+        "Tahan panas",
+        "Mudah korosi",
+        "Kuat secara mekanis",
+        "Aman terhadap suhu tinggi"
+      ]
+    ],
+    [
+      "Jenis kabel yang umum digunakan untuk instalasi rumah tangga adalah...",
+      [
+        "NYY",
+        "NYAF",
+        "NYM",
+        "NFA2X",
+        "BC"
+      ]
+    ],
+    [
+      "Sistem pemadangan inbow memiliki ciri utama...",
+      [
+        "Kabel terlihat menempel di dinding",
+        "Kabel ditanam di dalam dinding atau lantai",
+        "Tidak menggunakan pipa pelindung",
+        "Dipasang di luar bangunan",
+        "Tidak memakai sakelar"
+      ]
+    ],
+    [
+      "Jumlah kabel dalam pipa tidak boleh melebihi...",
+      [
+        "20% dari luas penampang pipa",
+        "30% dari luas penampang pipa",
+        "40% dari luas penampang pipa",
+        "50% dari luas penampang pipa",
+        "60% dari luas penampang pipa"
+      ]
+    ]
+  ]
+},
+
+// ==========================
+// QUIZ 5 - Panel Hubung Bagi (PHB) dan Instalasi Dua Grup
+// ==========================
+5: {
+  title: "Quiz 5 - Panel Hubung Bagi (PHB) dan Instalasi Dua Grup",
+  key: ['c','b','a','b','c'],
+  questions: [
+    [
+      "Fungsi utama Panel Hubung Bagi (PHB) adalah...",
+      [
+        "Menyimpan energi listrik",
+        "Mengubah tegangan listrik",
+        "Mendistribusikan dan mengamankan tenaga listrik ke beban",
+        "Menurunkan arus pada penghantar",
+        "Menambah jumlah rangkaian"
+      ]
+    ],
+    [
+      "Komponen yang berfungsi sebagai penghubung dan pemutus utama arus listrik adalah...",
+      [
+        "ELCB",
+        "Main Switch",
+        "Busbar",
+        "MCCB",
+        "Sakelar tunggal"
+      ]
+    ],
+    [
+      "Fungsi ELCB adalah...",
+      [
+        "Melindungi instalasi dari arus bocor ke tanah",
+        "Mengatur tegangan output",
+        "Mengontrol motor listrik",
+        "Meningkatkan faktor daya",
+        "Menyalurkan energi dari sumber"
+      ]
+    ],
+    [
+      "Busbar dalam panel berfungsi untuk...",
+      [
+        "Mengontrol suhu pada panel",
+        "Mendistribusikan arus listrik ke beberapa rangkaian",
+        "Menambah tegangan listrik",
+        "Mengatur daya aktif",
+        "Mengatur frekuensi sumber"
+      ]
+    ],
+    [
+      "Tujuan instalasi dua grup adalah...",
+      [
+        "Menghemat kabel penghantar utama",
+        "Meningkatkan daya terpasang",
+        "Membagi beban listrik agar tidak terpusat pada satu jalur",
+        "Menambah jumlah lampu",
+        "Menurunkan daya semu"
+      ]
+    ]
+  ]
+},
+
+// ==========================
+// QUIZ 6 - Rekapitulasi Daya dan Kestimbangan Beban
+// ==========================
+6: {
+  title: "Quiz 6 - Rekapitulasi Daya dan Kestimbangan Beban",
+  key: ['a','b','a','b','a'],
+  questions: [
+    [
+      "Tujuan utama rekapitulasi daya adalah...",
+      [
+        "Mengetahui total daya listrik yang dibutuhkan suatu bangunan",
+        "Menentukan jenis kabel penghantar",
+        "Mengukur tegangan jatuh pada penghantar",
+        "Menentukan posisi sakelar",
+        "Menentukan warna kabel pada instalasi"
+      ]
+    ],
+    [
+      "Rumus daya semu (S) adalah...",
+      [
+        "S = V × I × cos φ",
+        "S = P / cos φ",
+        "S = I² × R",
+        "S = V / R",
+        "S = P × R"
+      ]
+    ],
+    [
+      "Kestimbangan beban bertujuan agar...",
+      [
+        "Arus netral mendekati nol dan sistem efisien",
+        "Tegangan meningkat di setiap fasa",
+        "Semua beban berada pada satu fasa",
+        "Daya listrik berkurang",
+        "Sistem menghasilkan panas lebih"
+      ]
+    ],
+    [
+      "Batas perbedaan beban antar fasa maksimal adalah...",
+      [
+        "10% dari beban rata-rata",
+        "20% dari beban rata-rata",
+        "30% dari beban rata-rata",
+        "40% dari beban rata-rata",
+        "50% dari beban rata-rata"
+      ]
+    ],
+    [
+      "Fungsi utama sistem instalasi dua grup adalah...",
+      [
+        "Menjamin kontinuitas suplai listrik ketika salah satu grup terputus",
+        "Menghemat daya terpasang dari PLN",
+        "Mengurangi arus bocor pada sistem",
+        "Meningkatkan nilai cos φ",
+        "Menambah jumlah beban per fasa"
+      ]
+    ]
+  ]
+},
+
+// ===== QUIZ 7 - Desain Instalasi Listrik =====
+7: {
+  title: "Quiz 7 - Desain Instalasi Listrik",
+  key: ['a','c','b','d','a'],
+  questions: [
+    [
+      "Apa pengertian desain instalasi listrik menurut PUIL 2011?",
+      [
+        "Proses perencanaan tata letak dan sistem distribusi listrik pada bangunan untuk menjamin keamanan dan efisiensi",
+        "Kegiatan pemasangan peralatan listrik secara langsung di lapangan",
+        "Upaya pengujian isolasi kabel dan konduktor dalam sistem instalasi",
+        "Metode pengukuran arus dan tegangan pada jaringan distribusi",
+        "Pengumpulan data konsumsi listrik pada suatu gedung"
+      ]
+    ],
+    [
+      "Gambar yang digunakan untuk menunjukkan hubungan antara sumber listrik dan beban disebut...",
+      [
+        "Gambar denah instalasi listrik",
+        "Diagram pengawatan (wiring diagram)",
+        "Diagram garis tunggal (single line diagram)",
+        "Diagram distribusi panel",
+        "Skema grounding sistem proteksi"
+      ]
+    ],
+    [
+      "Komponen yang termasuk dalam sistem instalasi listrik rumah tinggal adalah...",
+      [
+        "Stop kontak, sakelar, dan alat ukur tegangan saja",
+        "Sumber listrik, penghantar, beban listrik, kontrol, dan sistem pentanahan",
+        "MCB utama dan ELCB tanpa beban",
+        "Panel distribusi dan trafo gardu",
+        "Kabel dan sambungan ground saja"
+      ]
+    ],
+    [
+      "Menurut PUIL, salah satu prinsip pelaksanaan instalasi listrik adalah...",
+      [
+        "Semua kabel boleh melintas di depan pipa air",
+        "MCB utama hanya digunakan pada beban lampu",
+        "Grup tidak perlu memiliki pengaman tersendiri",
+        "Semua bagian logam harus dihubungkan ke sistem pentanahan",
+        "Panel distribusi boleh diletakkan di luar bangunan tanpa pelindung"
+      ]
+    ],
+    [
+      "Fungsi utama gambar pelaksanaan instalasi listrik adalah...",
+      [
+        "Sebagai acuan pemasangan di lapangan dan perhitungan material",
+        "Sebagai dokumen administrasi proyek",
+        "Sebagai pedoman perawatan jaringan eksternal",
+        "Sebagai bukti sertifikasi tenaga listrik",
+        "Sebagai laporan hasil pengujian arus"
+      ]
+    ]
+  ]
+},
+
+// ===== QUIZ 8 - Sistem IoT dan Smart Home =====
+8: {
+  title: "Quiz 8 - Sistem IoT dan Smart Home",
+  key: ['b','a','d','b','c'],
+  questions: [
+    [
+      "Apa kepanjangan dari istilah IoT dalam sistem kendali modern?",
+      [
+        "Integration of Technology",
+        "Internet of Things",
+        "Information of Transmission",
+        "Intelligent Operating Tools",
+        "Industrial Online Telemetry"
+      ]
+    ],
+    [
+      "Perangkat mikrokontroler yang umum digunakan untuk sistem Smart Home berbasis WiFi adalah...",
+      [
+        "Arduino UNO",
+        "ESP8266 (NodeMCU)",
+        "ATMega328",
+        "PIC16F877A",
+        "STM32 Bluepill"
+      ]
+    ],
+    [
+      "Modul RobotDyn Dimmer berfungsi untuk...",
+      [
+        "Mengatur kecepatan motor listrik",
+        "Mendeteksi gerakan manusia",
+        "Menyimpan data sensor dalam EEPROM",
+        "Mengatur intensitas cahaya lampu berbasis AC",
+        "Mengubah tegangan AC menjadi DC"
+      ]
+    ],
+    [
+      "Sensor PIR bekerja berdasarkan prinsip...",
+      [
+        "Refleksi cahaya tampak dari benda",
+        "Deteksi radiasi infra merah tubuh manusia",
+        "Perubahan medan magnet di sekitar beban",
+        "Peningkatan suhu lingkungan ruangan",
+        "Perubahan resistansi pada sensor logam"
+      ]
+    ],
+    [
+      "Fungsi aplikasi IoT seperti Blynk dalam sistem Smart Home adalah...",
+      [
+        "Sebagai pengendali manual perangkat melalui jaringan internet",
+        "Sebagai alat pengukur suhu ruangan otomatis",
+        "Sebagai pengubah sinyal analog menjadi digital",
+        "Sebagai driver relay utama pada sistem kontrol",
+        "Sebagai penstabil tegangan output sensor"
+      ]
+    ]
+  ]
+}
+    };
+
+    function startQuiz(id){
+      const q = quizzes[id];
+      if(!q) return alert("Quiz belum tersedia!");
+      document.getElementById("quiz-list").style.display="none";
+      const area=document.getElementById("quiz-area");
+      let html=`<h2>${q.title}</h2><form id='quizForm'>`;
+      q.questions.forEach((soal,i)=>{
+        html+=`<div class='question'><h3>${i+1}. ${soal[0]}</h3>`;
+        soal[1].forEach((opsi,j)=>{
+          const val=String.fromCharCode(97+j);
+          html+=`<label><input type='radio' name='q${i+1}' value='${val}'> ${opsi}</label>`;
+        });
+        html+="</div>";
+      });
+      html+=`<button type='button' class='btn' onclick='checkAnswers(${id})'>Lihat Hasil</button>`;
+      html+=`<button type='button' class='btn' onclick='backToList()'>Kembali</button>`;
+      html+="</form><div id='result'></div>";
+      area.innerHTML=html;
+      area.style.display="block";
+    }
+
+    function checkAnswers(id){
+      const kunci=quizzes[id].key;
+      let skor=0;
+      for(let i=0;i<kunci.length;i++){
+        const j=document.querySelector(`input[name="q${i+1}"]:checked`);
+        if(j&&j.value===kunci[i]) skor++;
+      }
+      document.getElementById('result').textContent=`Skor Anda: ${skor}/5`;
+    }
+
+    function backToList(){
+      document.getElementById("quiz-area").style.display="none";
+      document.getElementById("quiz-list").style.display="grid";
+    }
+  </script>
 </body>
 </html>
