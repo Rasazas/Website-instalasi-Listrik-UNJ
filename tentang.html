@@ -1,150 +1,179 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tentang - Website Instalasi Listrik</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-       
-        html, body {
-            max-width: 100vw;
-            overflow-x: hidden;
-        }
-        body {
-            background-color: #0a0f1f;
-            background-image: url('assets/background-grid.svg');
-            background-size: cover;
-            background-attachment: fixed;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        .section-title.fade-in {
-            color: #fff;
-            font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 15px #00ffcc;
-            background: linear-gradient(90deg, #00ffcc, #00aaff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeIn 1.5s ease-in forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        
-        .about-card {
-            background: rgba(20, 30, 50, 0.5);
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 8px 25px rgba(0,255,204,0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 32px 24px;
-            color: #fff;
-            max-width: 700px;
-            margin: 2rem auto;
-            position: relative;
-            overflow: hidden;
-            font-size: 1.15rem;
-        }
-        .about-card h3 {
-            margin-top: 0;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            color: #00ffcc;
-            text-shadow: 0 0 8px #00ffcc;
-        }
-        .about-list {
-            margin: 1rem 0 0 0;
-            padding: 0 0 0 1.2rem;
-            color: #bffcff;
-        }
-        .icon-glow {
-            width: 48px;
-            height: 48px;
-            filter: drop-shadow(0 0 5px #00ffcc);
-            animation: glowPulse 2s infinite alternate;
-            position: absolute;
-            top: 18px;
-            right: 18px;
-        }
-        @keyframes glowPulse {
-            from { filter: drop-shadow(0 0 5px #00ffcc);}
-            to { filter: drop-shadow(0 0 15px #00ffcc);}
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0a0f1f;
-  padding: 1rem;
-  position: relative;
-  z-index: 3000;
-        font-size: 1rem;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang Saya - Widi Dwipayana</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      background-color: #0a0f1f;
+      background-image: url('assets/background-grid.svg');
+      background-size: cover;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .section-title.fade-in {
+      color: #fff;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 15px #00ffcc;
+      background: linear-gradient(90deg, #00ffcc, #00aaff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1.5s ease-in forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* Tombol Burger */
-.navbar-toggle {
-    display: none;
-    cursor: pointer;
-    z-index: 4000;
-    flex-direction: column;
-    gap: 0;
-    height: 28px;
-    width: 32px;
-    justify-content: center;
-    align-items: center;
-}
+    .about-card {
+      background: rgba(20, 30, 50, 0.55);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 25px rgba(0,255,204,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 32px 24px;
+      color: #fff;
+      max-width: 750px;
+      margin: 2rem auto;
+      position: relative;
+      overflow: hidden;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .about-card h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      color: #00ffcc;
+      text-shadow: 0 0 8px #00ffcc;
+    }
+    .about-list {
+      margin: 1rem 0 0 0;
+      padding: 0 0 0 1.2rem;
+      color: #bffcff;
+    }
 
-.navbar-toggle span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    margin-bottom: 4px;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-.navbar-toggle span:last-child {
-    margin-bottom: 0;
-}
-.navbar-toggle span:last-child {
-    margin-bottom: 0;
-}
+    /* === PROFIL BOX === */
+    .profile-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 1.8rem;
+    }
 
-/* Menu Navigasi */
-.navbar-menu {
-  display: flex;
-  gap: 1.2rem;
-  list-style: none;
-}
+    .profile-bg {
+      background: radial-gradient(circle at center, rgba(0,255,204,0.25), rgba(10,20,40,0.7));
+      padding: 12px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(0,255,204,0.3);
+      display: inline-block;
+    }
 
-.navbar-menu a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
+    .profile-img {
+      display: block;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(0,255,204,0.7);
+      box-shadow: 0 0 20px rgba(0,255,204,0.35);
+    }
 
-.navbar-menu a:hover {
-  color: #00ffcc;
-}
+    .contact-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+    .contact-box p {
+      margin: 0.3rem 0;
+      color: #bffcff;
+    }
+    .contact-box strong {
+      color: #00ffcc;
+    }
+    .icon-glow {
+      width: 48px;
+      height: 48px;
+      filter: drop-shadow(0 0 5px #00ffcc);
+      animation: glowPulse 2s infinite alternate;
+      position: absolute;
+      top: 18px;
+      right: 18px;
+    }
+    @keyframes glowPulse {
+      from { filter: drop-shadow(0 0 5px #00ffcc); }
+      to { filter: drop-shadow(0 0 15px #00ffcc); }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
 
-/* MODE MOBILE */
-@media (max-width: 768px) {
+    /* Navbar sama seperti sebelumnya */
     .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #0a0f1f;
+      padding: 1rem;
+      position: relative;
+      z-index: 3000;
+      font-size: 1rem;
+    }
+    .navbar-toggle {
+      display: none;
+      cursor: pointer;
+      z-index: 4000;
+      flex-direction: column;
+      gap: 0;
+      height: 28px;
+      width: 32px;
+      justify-content: center;
+      align-items: center;
+    }
+    .navbar-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      margin-bottom: 4px;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .navbar-menu {
+      display: flex;
+      gap: 1.2rem;
+      list-style: none;
+    }
+    .navbar-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .navbar-menu a:hover {
+      color: #00ffcc;
+    }
+    @media (max-width: 768px) {
+      .navbar {
         flex-wrap: wrap;
         padding: 1rem;
         font-size: 1rem;
-    }
-    .navbar-toggle {
+      }
+      .navbar-toggle {
         display: flex;
         position: relative;
         z-index: 4000;
@@ -152,19 +181,8 @@
         width: 32px;
         justify-content: center;
         align-items: center;
-    }
-    .navbar-toggle span {
-        width: 25px;
-        height: 3px;
-        background: #fff;
-        margin-bottom: 4px;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-    .navbar-toggle span:last-child {
-        margin-bottom: 0;
-    }
-    .navbar-menu {
+      }
+      .navbar-menu {
         display: none;
         flex-direction: column;
         align-items: center;
@@ -180,55 +198,65 @@
         left: 0;
         right: 0;
         z-index: 2500;
-    }
-    .navbar-menu.active {
+      }
+      .navbar-menu.active {
         display: flex;
+      }
     }
-}
-
-    </style>
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">Teknik Instalasi Listrik</div>
-        <div class="navbar-toggle" id="navbarToggle">
-            <span></span><span></span><span></span>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="home.html" class="nav-link">Home</a></li>
-            <li><a href="materi.html" class="nav-link">Materi</a></li>
-            <li><a href="simulasi.html" class="nav-link">Simulasi</a></li>
-            <li><a href="quiz.html" class="nav-link">Quiz</a></li>
-            <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
-            <li><a href="tentang.html" class="nav-link active">Tentang</a></li>
-        </ul>
-    </nav>
-    <script>
-        const navbarToggle = document.getElementById('navbarToggle');
-        const navbarMenu = document.querySelector('.navbar-menu');
-        navbarToggle.addEventListener('click', () => {
-            navbarMenu.classList.toggle('active');
-        });
-    </script>
-    <div class="container">
-        <h2 class="section-title fade-in">Tentang Website Instalasi Listrik</h2>
-        <div class="about-card fade-in">
-            <h3>Platform Pembelajaran & Simulasi Smart Home</h3>
-            <p>
-                Website Instalasi Listrik adalah platform interaktif untuk pembelajaran dan simulasi sistem instalasi penerangan berbasis smart home. 
-                Website ini menyediakan materi, jobsheet, quiz, dan simulasi yang terintegrasi dengan perangkat ESP8266 secara langsung.
-            </p>
-            <ul class="about-list">
-                <li>Materi dan jobsheet digital</li>
-                <li>Simulasi kontrol saklar & dimmer</li>
-                <li>Quiz interaktif</li>
-                <li>Notifikasi sensor PIR</li>
-                <li>Desain modern dan responsif</li>
-            </ul>
-            <img src="../assets/instalasi1.png" alt="Smart Home Icon" class="icon-glow">
-        </div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Teknik Instalasi Listrik</div>
+    <div class="navbar-toggle" id="navbarToggle">
+      <span></span><span></span><span></span>
     </div>
-    <script src="script.js"></script>
+    <ul class="navbar-menu">
+      <li><a href="home.html" class="nav-link">Home</a></li>
+      <li><a href="materi.html" class="nav-link">Materi</a></li>
+      <li><a href="simulasi.html" class="nav-link">Simulasi</a></li>
+      <li><a href="quiz.html" class="nav-link">Quiz</a></li>
+      <li><a href="jobsheet.html" class="nav-link">Jobsheet</a></li>
+      <li><a href="tentang.html" class="nav-link active">Tentang</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    const navbarToggle = document.getElementById("navbarToggle");
+    const navbarMenu = document.querySelector(".navbar-menu");
+    navbarToggle.addEventListener("click", () => {
+      navbarMenu.classList.toggle("active");
+    });
+  </script>
+
+  <div class="container">
+    <h2 class="section-title fade-in">Tentang Saya</h2>
+    <div class="about-card fade-in">
+      <div class="profile-wrapper">
+        <div class="profile-bg">
+          <img src="./assets/widi.jpg" alt="Foto Profil" class="profile-img" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <h3><span style="color:#00ffcc;">Widi Dwipayana</span></h3>
+      <p>
+        Saya adalah mahasiswa yang memiliki minat dalam bidang <strong>Teknik Instalasi Listrik</strong> dan penerapan teknologi
+        <em>Internet of Things (IoT)</em> dalam sistem kelistrikan rumah pintar (<strong>Smart Home</strong>).
+        Website ini saya rancang sebagai media pembelajaran interaktif yang menggabungkan teori, simulasi, dan evaluasi berbasis digital.
+      </p>
+      <p>
+        Dengan pengalaman dalam pembuatan proyek berbasis <strong>ESP8266</strong> dan sistem kendali otomatis, saya berkomitmen untuk terus
+        mengembangkan inovasi di bidang instalasi listrik modern yang aman, efisien, dan ramah pengguna.
+      </p>
+      
+      <div class="contact-box">
+        <p><strong>Nama:</strong> Widi Dwipayana</p>
+        <p><strong>No. HP:</strong> 0851-8303-5367</p>
+        <p><strong>Email:</strong> <a href="mailto:wididwipermadi@gmail.com" style="color:#00aaff;text-decoration:none;">wididwipermadi@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
