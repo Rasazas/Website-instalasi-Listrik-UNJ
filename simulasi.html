@@ -255,7 +255,7 @@
                 <span id="dimmer-value" style="color:#00ffcc;font-weight:bold;">37%</span>
             </div>
             <div class="pir-status">
-                Notifikasi PIR: <span>Tidak ada gerakan</span>
+                Notifikasi PIR: <span id="pirNotif">Tidak ada gerakan</span>
             </div>
         </div>
     </div>
@@ -272,12 +272,31 @@
         });
 
         // Toggle logic (relay)
-        for(let i=1; i<=5; i++) {
-            document.getElementById(`relay${i}-toggle`).addEventListener('change', function() {
+        for(let i=1; i<=4; i++) {
+            const el = document.getElementById(`relay${i}-toggle`);
+            if (!el) continue;
+            el.addEventListener('change', function() {
                 const state = this.checked ? "on" : "off";
                 fetch(`http://${ESP_IP}/relay${i}/${state}`);
             });
         }
+
+        // PIR polling: query ESP `/pir` every 2s and update UI
+        const pirEl = document.getElementById('pirNotif');
+        async function pollPir(){
+            try{
+                const res = await fetch(`http://${ESP_IP}/pir`);
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const j = await res.json();
+                const detected = (j.status && j.status != 0);
+                pirEl.textContent = detected ? 'Terdeteksi' : 'Tidak ada gerakan';
+                pirEl.style.color = detected ? '#ff6666' : '#00ffcc';
+            }catch(e){
+                console.log('PIR poll error', e);
+            }
+        }
+        setInterval(pollPir, 2000);
+        pollPir();
 
         // Debug: log toggle
         console.log('Navbar burger script loaded');
