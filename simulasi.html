@@ -111,6 +111,14 @@
             color: #00ffcc;
             text-shadow: 0 0 8px #00ffcc;
         }
+        .flash {
+            animation: flashPulse 900ms ease;
+        }
+        @keyframes flashPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
         .navbar-toggle { z-index: 2000; }
         .navbar-menu { z-index: 1500; }
         /* ==== NAVBAR DESKTOP ==== */
@@ -257,6 +265,7 @@
             <div class="pir-status">
                 Notifikasi PIR: <span id="pirNotif">Tidak ada gerakan</span>
                 <div style="font-size:0.9rem;color:#9bf6ff;margin-top:6px;">Raw: <span id="pirRaw">-</span></div>
+                <div style="font-size:0.9rem;color:#9bf6ff;margin-top:6px;">Terakhir terdeteksi: <span id="pirTime">-</span></div>
             </div>
         </div>
     </div>
@@ -284,6 +293,7 @@
 
         // PIR polling: query ESP `/pir` every 2s and update UI
         const pirEl = document.getElementById('pirNotif');
+        const pirTimeEl = document.getElementById('pirTime');
         async function pollPir(){
             try{
                 const res = await fetch(`http://${ESP_IP}/pir`);
@@ -295,6 +305,11 @@
                 const detected = (j.status && j.status != 0);
                 pirEl.textContent = detected ? 'Terdeteksi' : 'Tidak ada gerakan';
                 pirEl.style.color = detected ? '#ff6666' : '#00ffcc';
+                if (detected) {
+                    if (pirTimeEl) pirTimeEl.textContent = new Date().toLocaleTimeString();
+                    pirEl.classList.add('flash');
+                    setTimeout(()=> pirEl.classList.remove('flash'), 1000);
+                }
             }catch(e){
                 console.log('PIR poll error', e);
             }
