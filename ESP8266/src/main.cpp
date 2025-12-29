@@ -6,6 +6,7 @@
 
 #include <ESP8266WebServer.h>
 #include <RBDdimmer.h>
+#include <ESP8266HTTPClient.h>
 // Web server lokal pada port 80
 ESP8266WebServer server(80);
 
@@ -18,8 +19,8 @@ ESP8266WebServer server(80);
 #include <SinricProLight.h>
 #include <RBDdimmer.h>
 
-#define WIFI_SSID     "Puput"
-#define WIFI_PASS     "gunawan123"
+#define WIFI_SSID     "Trainer Instalasi"
+#define WIFI_PASS     "Nagamerah10"
 #define APP_KEY       "23d7a9a0-35b4-4e8f-b869-4fb0367e35f3"
 #define APP_SECRET    "1a544df4-3cd3-4945-94c0-9932511fd82d-19eff719-0084-4282-b970-48560119a74d"
 #define SWITCH_ID1    "68ca6343033cb129b008f852"
@@ -42,6 +43,7 @@ ESP8266WebServer server(80);
 
 #define DIMMER_OUTPUT_PIN  D6
 #define ZEROCROSS_PIN      D5
+#define NOTIF_HOST "192.168.0.100" // ganti dengan IP/hostname server notifikasi Anda
 
 // Deklarasi objek switch global sebagai referensi
 SinricProSwitch& sw1 = SinricPro[SWITCH_ID1];
@@ -59,13 +61,15 @@ bool handleSwitchPower5(const String &deviceId, bool &state) { return handleSwit
 
 bool lampState[5] = {false, false, false, false, false};
 bool pirDetected = false;
+unsigned long pirLastDetectedMillis = 0;
 int dimmerValue = 50;
 dimmerLamp dimmer(DIMMER_OUTPUT_PIN, ZEROCROSS_PIN);
 
 void setRelay(int idx, bool state) {
   int relayPins[5] = {RELAY1_PIN, RELAY2_PIN, RELAY3_PIN, RELAY4_PIN, RELAY5_PIN};
   if (idx >= 0 && idx < 5) {
-    digitalWrite(relayPins[idx], state ? HIGH : LOW);
+    // Active-low relay: ON -> LOW, OFF -> HIGH
+    digitalWrite(relayPins[idx], state ? LOW : HIGH);
   }
 }
 
@@ -94,12 +98,14 @@ bool onBrightness(const String &deviceId, int &brightness) {
 }
 
 void handleRelay1On() {
-  digitalWrite(RELAY1_PIN, HIGH);
+  // Active-low relay: turn ON by writing LOW
+  digitalWrite(RELAY1_PIN, LOW);
   server.send(200, "text/plain", "Relay 1 ON");
 }
 
 void handleRelay1Off() {
-  digitalWrite(RELAY1_PIN, LOW);
+  // Active-low relay: turn OFF by writing HIGH
+  digitalWrite(RELAY1_PIN, HIGH);
   server.send(200, "text/plain", "Relay 1 OFF");
 }
 
@@ -228,8 +234,20 @@ void setup() {
   });
 
   // Endpoint status PIR
+  // Endpoint status PIR (with CORS)
+  server.on("/pir", HTTP_OPTIONS, []() {
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
+    server.send(204);
+  });
   server.on("/pir", []() {
-    int pir = digitalRead(PIR_PIN);
+    // Return latched PIR status: 1 if detected within last 5 seconds
+    unsigned long now = millis();
+    int pir = (now - pirLastDetectedMillis) < 5000 ? 1 : 0;
+    server.sendHeader("Access-Control-Allow-Origin", "*");
+    server.sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
     server.send(200, "application/json", String("{\"status\":") + pir + "}");
   });
   // Tambahkan endpoint lain sesuai kebutuhan
@@ -276,21 +294,36 @@ void loop() {
     Serial.printf("PIR: %s\n", pirDetected ? "Terdeteksi" : "Tidak Terdeteksi");
     // 1. Nyalakan lampu 1 saat PIR aktif
     if (pirDetected) {
+      pirLastDetectedMillis = millis();
       lampState[0] = true;
       setRelay(0, true);
       sw1.sendPowerStateEvent(true);
       // 2. Kirim notifikasi ke web (misal via HTTP GET)
-      WiFiClient client;
-      if (client.connect("alamat_server_web", 80)) {
-        client.print(String("GET /notifikasi?pir=1 HTTP/1.1\r\nHost: alamat_server_web\r\nConnection: close\r\n\r\n"));
+      if (WiFi.status() == WL_CONNECTED) {
+        HTTPClient http;
+        WiFiClient wifiClient;
+        String url = String("http://") + NOTIF_HOST + "/notifikasi?pir=1";
+        http.begin(wifiClient, url);
+        int httpCode = http.GET();
+        Serial.printf("Notif sent, code=%d\n", httpCode);
+        http.end();
+      } else {
+        Serial.println("Notif failed: WiFi not connected");
       }
     } else {
       lampState[0] = false;
       setRelay(0, false);
       sw1.sendPowerStateEvent(false);
-      WiFiClient client;
-      if (client.connect("alamat_server_web", 80)) {
-        client.print(String("GET /notifikasi?pir=0 HTTP/1.1\r\nHost: alamat_server_web\r\nConnection: close\r\n\r\n"));
+      if (WiFi.status() == WL_CONNECTED) {
+        HTTPClient http;
+        WiFiClient wifiClient;
+        String url = String("http://") + NOTIF_HOST + "/notifikasi?pir=0";
+        http.begin(wifiClient, url);
+        int httpCode = http.GET();
+        Serial.printf("Notif sent, code=%d\n", httpCode);
+        http.end();
+      } else {
+        Serial.println("Notif failed: WiFi not connected");
       }
     }
   }
