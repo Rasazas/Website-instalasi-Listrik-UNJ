@@ -256,6 +256,7 @@
             </div>
             <div class="pir-status">
                 Notifikasi PIR: <span id="pirNotif">Tidak ada gerakan</span>
+                <div style="font-size:0.9rem;color:#9bf6ff;margin-top:6px;">Raw: <span id="pirRaw">-</span></div>
             </div>
         </div>
     </div>
@@ -288,6 +289,9 @@
                 const res = await fetch(`http://${ESP_IP}/pir`);
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const j = await res.json();
+                console.log('PIR poll response:', j);
+                const rawEl = document.getElementById('pirRaw');
+                if (rawEl) rawEl.textContent = JSON.stringify(j);
                 const detected = (j.status && j.status != 0);
                 pirEl.textContent = detected ? 'Terdeteksi' : 'Tidak ada gerakan';
                 pirEl.style.color = detected ? '#ff6666' : '#00ffcc';
