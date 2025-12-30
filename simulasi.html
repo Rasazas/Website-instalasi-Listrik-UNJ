@@ -276,9 +276,14 @@
         // Slider dimmer logic
         const slider = document.getElementById('dimmer-slider');
         const valueLabel = document.getElementById('dimmer-value');
+        // debounce slider to avoid many requests
+        let _dimmerTimeout;
         slider.addEventListener('input', function() {
             valueLabel.textContent = slider.value + '%';
-            fetch(`http://${ESP_IP}/dimmer/set?value=${slider.value}`);
+            clearTimeout(_dimmerTimeout);
+            _dimmerTimeout = setTimeout(() => {
+                fetch(`http://${ESP_IP}/dimmer/set?value=${slider.value}`).catch(()=>{});
+            }, 200);
         });
 
         // Toggle logic (relay)
