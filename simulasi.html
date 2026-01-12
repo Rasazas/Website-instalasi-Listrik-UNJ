@@ -270,79 +270,19 @@
         </div>
     </div>
     <script>
-        // ESP host configuration
-        // Users can set the ESP IP/host here (stored in localStorage) or pass via ?esp=IP
-        function getSavedEsp() {
-            const params = new URLSearchParams(window.location.search);
-            const q = params.get('esp');
-            if (q) return q;
-            return localStorage.getItem('esp_host') || '';
-        }
-
-        function saveEsp(v) {
-            localStorage.setItem('esp_host', v);
-        }
-
-        const espInputContainer = document.createElement('div');
-        espInputContainer.style.margin = '12px 0';
-        espInputContainer.innerHTML = `
-            <label style="color:#bffcff;display:block;margin-bottom:6px">ESP Host / IP (contoh: 192.168.1.50 atau 10.0.0.5)</label>
-            <input id="esp-host-input" type="text" placeholder="kosong = gunakan query ?esp=IP atau hostname saat ini" style="padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);width:100%">
-            <div id="esp-warning" style="color:#ffd1d1;margin-top:8px;display:none;font-size:0.9rem"></div>
-            <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
-                <button id="esp-test-btn" style="padding:6px 10px;border-radius:6px;background:#00aaff;color:#fff;border:none;cursor:pointer">Test koneksi</button>
-                <div id="esp-current" style="color:#9bf6ff;font-size:0.95rem"></div>
-            </div>
-        `;
-        const card = document.querySelector('.simulasi-card');
-        if (card) card.insertBefore(espInputContainer, card.firstChild);
-
-        const espHostInput = document.getElementById('esp-host-input');
-        const espWarning = document.getElementById('esp-warning');
-        espHostInput.value = getSavedEsp();
-        espHostInput.addEventListener('change', function(){ saveEsp(this.value.trim()); updateWarning(); updateEspCurrent(); });
-        espHostInput.addEventListener('input', updateEspCurrent);
-
-        const espTestBtn = document.getElementById('esp-test-btn');
-        const espCurrent = document.getElementById('esp-current');
-        function updateEspCurrent(){ const base = getEspBase(); if (base) espCurrent.textContent = 'Base: ' + base; else espCurrent.textContent = 'ESP belum dikonfigurasi (isi IP di atas atau gunakan ?esp=IP)'; }
-        updateEspCurrent();
-        espTestBtn.addEventListener('click', async function(){ const base = getEspBase(); if (!base){ alert('ESP host kosong. Isi IP/host pada kolom di atas atau gunakan ?esp=IP'); return; } try{ const res = await fetch(base + '/', { mode:'no-cors' }); espCurrent.textContent = 'Permintaan terkirim (no-cors mode) — lihat device untuk respons.'; }catch(e){ espCurrent.textContent = 'Gagal: ' + e.message; } });
-
-        function updateWarning(){
-            const host = getSavedEsp();
-            if (!host) { espWarning.style.display = 'none'; return; }
-            if (location.protocol === 'https:' && host.indexOf('https://') !== 0) {
-                espWarning.textContent = 'Halaman ini disajikan lewat HTTPS; browser akan memblokir permintaan HTTP (mixed-content). Gunakan server lokal (http) atau expose ESP via HTTPS/tunnel (ngrok), atau akses situs lewat HTTP untuk testing.';
-                espWarning.style.display = 'block';
-            } else {
-                espWarning.style.display = 'none';
-            }
-        }
-        updateWarning();
-
-        function getEspBase(){
-            const saved = getSavedEsp();
-            if (saved) {
-                if (saved.indexOf('http://') === 0 || saved.indexOf('https://') === 0) return saved.replace(/\/$/, '');
-                // choose scheme based on page protocol (best-effort)
-                const scheme = (location.protocol === 'https:') ? 'https://' : 'http://';
-                return scheme + saved.replace(/\/$/, '');
-            }
-            return null;
-        }
+        // IP ESP8266, ganti sesuai IP yang muncul di Serial Monitor
+        const ESP_IP = "192.168.0.100";
 
         // Slider dimmer logic
         const slider = document.getElementById('dimmer-slider');
         const valueLabel = document.getElementById('dimmer-value');
+        // debounce slider to avoid many requests
         let _dimmerTimeout;
         slider.addEventListener('input', function() {
             valueLabel.textContent = slider.value + '%';
             clearTimeout(_dimmerTimeout);
             _dimmerTimeout = setTimeout(() => {
-                const base = getEspBase();
-                if (!base) return;
-                fetch(`${base}/dimmer/set?value=${slider.value}`).catch((e)=>{ console.log('dimmer fetch error', e); });
+                fetch(`http://${ESP_IP}/dimmer/set?value=${slider.value}`).catch(()=>{});
             }, 200);
         });
 
@@ -352,9 +292,7 @@
             if (!el) continue;
             el.addEventListener('change', function() {
                 const state = this.checked ? "on" : "off";
-                const base = getEspBase();
-                if (!base) return;
-                fetch(`${base}/relay${i}/${state}`).catch(e=>console.log('relay fetch error', e));
+                fetch(`http://${ESP_IP}/relay${i}/${state}`);
             });
         }
 
@@ -363,9 +301,7 @@
         const pirTimeEl = document.getElementById('pirTime');
         async function pollPir(){
             try{
-                const base = getEspBase();
-                if (!base) return;
-                const res = await fetch(`${base}/pir`);
+                const res = await fetch(`http://${ESP_IP}/pir`);
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const j = await res.json();
                 console.log('PIR poll response:', j);
