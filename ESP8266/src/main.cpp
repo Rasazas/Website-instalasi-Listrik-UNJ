@@ -21,27 +21,28 @@ ESP8266WebServer server(80);
 
 #define WIFI_SSID     "Trainer Instalasi"
 #define WIFI_PASS     "Nagamerah10"
-#define APP_KEY       "23d7a9a0-35b4-4e8f-b869-4fb0367e35f3"
-#define APP_SECRET    "1a544df4-3cd3-4945-94c0-9932511fd82d-19eff719-0084-4282-b970-48560119a74d"
-#define SWITCH_ID1    "68ca6343033cb129b008f852"
-#define SWITCH_ID2    "68ca63b1033cb129b008f8d9"
-#define SWITCH_ID3    "68ca6403b73c366187ee264b"
+#define APP_KEY       "2d75ac98-4b07-446a-86ce-c863117804e3"
+#define APP_SECRET    "9f8ed505-7789-467a-91a9-c21f0e28bf96-b3dcf12f-a3b6-445a-a463-2f8933a872af"
+#define SWITCH_ID1    "69651077dc90b2c9e0750c6e"
+#define SWITCH_ID2    "696511bc21c7ee0f7e59d594"
+#define SWITCH_ID3    "6965120bdc90b2c9e0750d84"
 #define SWITCH_ID4    "SINRICPRO_SWITCH_ID4"
 #define SWITCH_ID5    "SINRICPRO_SWITCH_ID5" // Ganti dengan ID switch kelima dari SinricPro
 #define DIMMER_ID     "SINRICPRO_DIMMER_ID"
 
 #define RELAY1_PIN    D1
 #define RELAY2_PIN    D2
-#define RELAY3_PIN    D3
+#define RELAY3_PIN    D0
 #define RELAY4_PIN    D4
-#define RELAY5_PIN    D9 // Ganti D9 dengan pin yang Anda gunakan untuk relay 5
-#define BUTTON1_PIN   D5
-#define BUTTON2_PIN   D6
-#define BUTTON3_PIN   D7
-#define BUTTON4_PIN   D0
+#define BUTTON1_PIN   D3
+#define BUTTON2_PIN   D7
 #define PIR_PIN       D8
+#define RELAY5_PIN    -1
 
-#define DIMMER_OUTPUT_PIN  D6
+// Set to 1 if relay module is active-low (LOW = ON), 0 if active-high (HIGH = ON)
+#define RELAY_ACTIVE_LOW 0
+
+#define DIMMER_OUTPUT_PIN  A0
 #define ZEROCROSS_PIN      D5
 #define NOTIF_HOST "192.168.0.100" // ganti dengan IP/hostname server notifikasi Anda
 
@@ -68,8 +69,12 @@ dimmerLamp dimmer(DIMMER_OUTPUT_PIN, ZEROCROSS_PIN);
 void setRelay(int idx, bool state) {
   int relayPins[5] = {RELAY1_PIN, RELAY2_PIN, RELAY3_PIN, RELAY4_PIN, RELAY5_PIN};
   if (idx >= 0 && idx < 5) {
-    // Active-low relay: ON -> LOW, OFF -> HIGH
-    digitalWrite(relayPins[idx], state ? LOW : HIGH);
+    // Active-high relay: ON -> HIGH, OFF -> LOW
+    int pin = relayPins[idx];
+    if (pin >= 0) {
+      int out = (state ? (RELAY_ACTIVE_LOW ? LOW : HIGH) : (RELAY_ACTIVE_LOW ? HIGH : LOW));
+      digitalWrite(pin, out);
+    }
   }
 }
 
@@ -98,14 +103,14 @@ bool onBrightness(const String &deviceId, int &brightness) {
 }
 
 void handleRelay1On() {
-  // Active-low relay: turn ON by writing LOW
-  digitalWrite(RELAY1_PIN, LOW);
+  lampState[0] = true;
+  setRelay(0, true);
   server.send(200, "text/plain", "Relay 1 ON");
 }
 
 void handleRelay1Off() {
-  // Active-low relay: turn OFF by writing HIGH
-  digitalWrite(RELAY1_PIN, HIGH);
+  lampState[0] = false;
+  setRelay(0, false);
   server.send(200, "text/plain", "Relay 1 OFF");
 }
 
@@ -117,22 +122,24 @@ void setup() {
     json += "\"relay2\":" + String(lampState[1] ? 1 : 0) + ",";
     json += "\"relay3\":" + String(lampState[2] ? 1 : 0) + ",";
     json += "\"relay4\":" + String(lampState[3] ? 1 : 0) + ",";
-    json += "\"relay5\":" + String(lampState[4] ? 1 : 0) + ",";
     json += "\"dimmer\":" + String(dimmerValue);
     json += "}";
     server.send(200, "application/json", json);
   });
   sw5.onPowerState(handleSwitchPower5);
   Serial.begin(115200);
+  // Set output level before configuring as OUTPUT to avoid transient/high pulses
+  int relayOffLevel = (RELAY_ACTIVE_LOW ? HIGH : LOW); // OFF = HIGH when active-low
+  digitalWrite(RELAY1_PIN, relayOffLevel);
+  digitalWrite(RELAY2_PIN, relayOffLevel);
+  digitalWrite(RELAY3_PIN, relayOffLevel);
+  digitalWrite(RELAY4_PIN, relayOffLevel);
   pinMode(RELAY1_PIN, OUTPUT);
   pinMode(RELAY2_PIN, OUTPUT);
   pinMode(RELAY3_PIN, OUTPUT);
   pinMode(RELAY4_PIN, OUTPUT);
-  pinMode(RELAY5_PIN, OUTPUT);
   pinMode(BUTTON1_PIN, INPUT_PULLUP);
   pinMode(BUTTON2_PIN, INPUT_PULLUP);
-  pinMode(BUTTON3_PIN, INPUT_PULLUP);
-  pinMode(BUTTON4_PIN, INPUT_PULLUP);
   pinMode(PIR_PIN, INPUT);
   for (int i = 0; i < 5; i++) setRelay(i, false);
   dimmer.begin(NORMAL_MODE, ON);
@@ -146,6 +153,8 @@ void setup() {
   Serial.println("Connected!");
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
+  // Print pin mapping for debugging
+  Serial.printf("Pins: RELAY1=%d RELAY2=%d BUTTON1=%d BUTTON2=%d PIR=%d\n", RELAY1_PIN, RELAY2_PIN, BUTTON1_PIN, BUTTON2_PIN, PIR_PIN);
 
   // Endpoint kontrol relay via HTTP
   server.on("/relay1/on", []() {
@@ -242,13 +251,20 @@ void setup() {
     server.send(204);
   });
   server.on("/pir", []() {
-    // Return latched PIR status: 1 if detected within last 5 seconds
+    // Return both raw pin and latched PIR status
+    // Latched = 1 if motion detected within last 15 seconds (helps UI visibility)
     unsigned long now = millis();
-    int pir = (now - pirLastDetectedMillis) < 5000 ? 1 : 0;
+    int raw = digitalRead(PIR_PIN);
+    int latched = (now - pirLastDetectedMillis) < 15000 ? 1 : 0;
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
-    server.send(200, "application/json", String("{\"status\":") + pir + "}");
+    String json = "{";
+    json += "\"raw\":" + String(raw) + ",";
+    json += "\"status\":" + String(latched) + ",";
+    json += "\"since_ms\":" + String(now - pirLastDetectedMillis);
+    json += "}";
+    server.send(200, "application/json", json);
   });
   // Tambahkan endpoint lain sesuai kebutuhan
 
@@ -268,27 +284,62 @@ void setup() {
 void loop() {
   SinricPro.handle();
   server.handleClient();
-  static bool lastBtn[4] = {HIGH, HIGH, HIGH, HIGH};
-  int btnPins[4] = {BUTTON1_PIN, BUTTON2_PIN, BUTTON3_PIN, BUTTON4_PIN};
-  static unsigned long lastEventMillis[4] = {0,0,0,0};
-  for (int i = 0; i < 4; i++) {
-    bool btn = digitalRead(btnPins[i]);
-    if (btn == LOW && lastBtn[i] == HIGH) {
-      lampState[i] = !lampState[i];
-      setRelay(i, lampState[i]);
-      unsigned long now = millis();
-      if (now - lastEventMillis[i] > 500) { // minimal 500ms antar event
-        if (i == 0) sw1.sendPowerStateEvent(lampState[i]);
-        if (i == 1) sw2.sendPowerStateEvent(lampState[i]);
-        if (i == 2) sw3.sendPowerStateEvent(lampState[i]);
-        if (i == 3) sw4.sendPowerStateEvent(lampState[i]);
-        lastEventMillis[i] = now;
-      }
-      delay(200); // debounce tombol
+  // Debounced button handling: require stable LOW for `debounceDelay` then toggle on press,
+  // wait for release before accepting next press.
+  const int numButtons = 2;
+  int btnPins[numButtons] = {BUTTON1_PIN, BUTTON2_PIN};
+  static int lastReading[numButtons] = {HIGH, HIGH};
+  static int stableState[numButtons] = {HIGH, HIGH};
+  static unsigned long lastDebounceTime[numButtons] = {0,0};
+  static unsigned long lastEventMillis[numButtons] = {0,0};
+  const unsigned long debounceDelay = 50; // ms
+  unsigned long now = millis();
+  for (int i = 0; i < numButtons; i++) {
+    int reading = digitalRead(btnPins[i]);
+    if (reading != lastReading[i]) {
+      // reset debounce timer
+      lastDebounceTime[i] = now;
+      lastReading[i] = reading;
     }
-    lastBtn[i] = btn;
+    if ((now - lastDebounceTime[i]) > debounceDelay) {
+      // if the button state has changed
+      if (reading != stableState[i]) {
+        stableState[i] = reading;
+        // only act on transition to LOW (pressed)
+        if (stableState[i] == LOW) {
+          int relayIdx = i; // tombol ke-0 -> relay0, tombol ke-1 -> relay1
+          lampState[relayIdx] = !lampState[relayIdx];
+          setRelay(relayIdx, lampState[relayIdx]);
+          Serial.printf("BUTTON: idx=%d pin=%d new=%s\n", relayIdx, btnPins[i], lampState[relayIdx] ? "ON" : "OFF");
+          if (now - lastEventMillis[i] > 500) {
+            if (relayIdx == 0) sw1.sendPowerStateEvent(lampState[relayIdx]);
+            if (relayIdx == 1) sw2.sendPowerStateEvent(lampState[relayIdx]);
+            lastEventMillis[i] = now;
+          }
+        }
+      }
+    }
   }
-  bool pirNow = digitalRead(PIR_PIN);
+  // Active-high PIR: sensor output is HIGH when motion is detected
+  bool pirNow = (digitalRead(PIR_PIN) == HIGH);
+
+  // Periodic debug print: raw pin value and interpreted active-high state
+  static unsigned long lastPirLogMillis = 0;
+  unsigned long nowMillis = millis();
+  if (nowMillis - lastPirLogMillis >= 1000) { // every 1s
+    int raw = digitalRead(PIR_PIN);
+    Serial.printf("[DEBUG] PIR raw=%d active=%d\n", raw, pirNow ? 1 : 0);
+    lastPirLogMillis = nowMillis;
+  }
+
+  // Periodic button raw debug every 500ms
+  static unsigned long lastBtnLogMillis = 0;
+  if (nowMillis - lastBtnLogMillis >= 500) {
+    int b0 = digitalRead(BUTTON1_PIN);
+    int b1 = digitalRead(BUTTON2_PIN);
+    Serial.printf("[DEBUG] BTN raw: btn1=%d btn2=%d\n", b0, b1);
+    lastBtnLogMillis = nowMillis;
+  }
   if (pirNow != pirDetected) {
     pirDetected = pirNow;
     Serial.printf("PIR: %s\n", pirDetected ? "Terdeteksi" : "Tidak Terdeteksi");
