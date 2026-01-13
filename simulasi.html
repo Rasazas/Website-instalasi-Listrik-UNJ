@@ -101,10 +101,7 @@
             margin-bottom: 8px;
             display: block;
         }
-        .simulasi-slider {
-            width: 100%;
-            margin: 18px 0;
-        }
+        /* slider removed - dimmer handled by device directly */
         .pir-status {
             margin-top: 18px;
             font-size: 1.1rem;
@@ -257,11 +254,7 @@
                 </label>
             </div>
            
-            <div>
-                <span class="simulasi-label">Dimmer (RobotDyn):</span>
-                <input type="range" min="0" max="100" value="37" class="simulasi-slider" id="dimmer-slider">
-                <span id="dimmer-value" style="color:#00ffcc;font-weight:bold;">37%</span>
-            </div>
+            <!-- Dimmer slider removed per request -->
             <div class="pir-status">
                 Notifikasi PIR: <span id="pirNotif">Tidak ada gerakan</span>
                 <div style="font-size:0.9rem;color:#9bf6ff;margin-top:6px;">Raw: <span id="pirRaw">-</span></div>
@@ -273,18 +266,7 @@
         // IP ESP8266, ganti sesuai IP yang muncul di Serial Monitor
         const ESP_IP = "192.168.0.100";
 
-        // Slider dimmer logic
-        const slider = document.getElementById('dimmer-slider');
-        const valueLabel = document.getElementById('dimmer-value');
-        // debounce slider to avoid many requests
-        let _dimmerTimeout;
-        slider.addEventListener('input', function() {
-            valueLabel.textContent = slider.value + '%';
-            clearTimeout(_dimmerTimeout);
-            _dimmerTimeout = setTimeout(() => {
-                fetch(`http://${ESP_IP}/dimmer/set?value=${slider.value}`).catch(()=>{});
-            }, 200);
-        });
+        // Dimmer slider removed. Relay toggles now reflect lamp state via polling.
 
         // Toggle logic (relay)
         for(let i=1; i<=4; i++) {
@@ -295,6 +277,42 @@
                 fetch(`http://${ESP_IP}/relay${i}/${state}`);
             });
         }
+
+        // Poll relay states from ESP and update toggles so they reflect lamp state
+        async function pollRelays(){
+            try{
+                let res = await fetch(`http://${ESP_IP}/status`);
+                if (res.ok) {
+                    const j = await res.json();
+                    for(let i=1;i<=4;i++){
+                        const el = document.getElementById(`relay${i}-toggle`);
+                        if(!el) continue;
+                        let state = false;
+                        if (j[`relay${i}`] !== undefined) state = (j[`relay${i}`] === 1 || j[`relay${i}`] === 'on' || j[`relay${i}`] === true);
+                        else if (j.relays && Array.isArray(j.relays) && j.relays[i-1] !== undefined) state = (j.relays[i-1] === 1 || j.relays[i-1] === 'on' || j.relays[i-1] === true);
+                        else if (j.relays && typeof j.relays === 'object' && j.relays[`relay${i}`] !== undefined) state = (j.relays[`relay${i}`] === 1 || j.relays[`relay${i}`] === 'on' || j.relays[`relay${i}`] === true);
+                        el.checked = state;
+                    }
+                } else {
+                    // fallback: try individual relay endpoints (may return plain text)
+                    for(let i=1;i<=4;i++){
+                        const el = document.getElementById(`relay${i}-toggle`);
+                        if(!el) continue;
+                        try{
+                            const r = await fetch(`http://${ESP_IP}/relay${i}`);
+                            if (r.ok){
+                                const txt = await r.text();
+                                el.checked = /on|1|true/i.test(txt);
+                            }
+                        }catch(e){/* ignore */}
+                    }
+                }
+            }catch(e){
+                // ignore polling errors
+            }
+        }
+        setInterval(pollRelays, 2000);
+        pollRelays();
 
         // PIR polling: query ESP `/pir` every 2s and update UI
         const pirEl = document.getElementById('pirNotif');
